@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proj.LandingPageController">
+   <children>
+      <AnchorPane fx:id="loginpage" layoutX="300.0" layoutY="129.0" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="500.0" prefWidth="440.0" styleClass="logo-card" stylesheets="@LandingDesign.css">
+               <children>
+                  <ImageView fitHeight="175.0" fitWidth="198.0" layoutX="113.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ooooooooooooooooooooooooooooooooooo.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="18.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="signin-title" text="Smart Waste Disposal System">
+                     <font>
+                        <Font name="SansSerif Regular" size="27.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="317.0" layoutY="463.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons8-facebook-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="21.0" fitWidth="24.0" layoutX="341.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons8-instagram-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="27.0" fitWidth="24.0" layoutX="362.0" layoutY="463.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons8-twitter-circled-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="9.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fax: 03-1231234" wrappingWidth="102.0" />
+                  <Text fill="WHITE" layoutX="9.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone: 03-1231234" wrappingWidth="118.0" />
+                  <Text fill="WHITE" layoutX="9.0" layoutY="496.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adress: Tel-Aviv, rehov tov 81" wrappingWidth="162.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="400.0" prefHeight="500.0" prefWidth="400.0" styleClass="signin-window" stylesheets="@LandingDesign.css">
+               <children>
+                  <AnchorPane layoutX="45.0" layoutY="68.0" prefHeight="365.0" prefWidth="311.0" styleClass="signin-card" stylesheets="@LandingDesign.css">
+                     <children>
+                        <ImageView fitHeight="81.0" fitWidth="99.0" layoutX="115.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons8-user-50.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="105.0" layoutY="114.0" prefHeight="38.0" prefWidth="102.0" stylesheets="@LandingDesign.css" text="Sign In" textFill="WHITE">
+                           <font>
+                              <Font name="FrankRuehl" size="33.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <TextField fx:id="username" layoutX="105.0" layoutY="197.0" promptText="Username" styleClass="cardential-field" stylesheets="@LandingDesign.css" />
+                        <Button fx:id="login_btn" layoutX="34.0" layoutY="285.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="81.0" styleClass="signin-button" stylesheets="@LandingDesign.css" text="Login">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="signup_btn" layoutX="224.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchform" style="-fx-border-radius: 10px;" styleClass="signin-button" stylesheets="@LandingDesign.css" text="Sign-Up">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Hyperlink fx:id="forgotpass_btn" layoutX="156.0" layoutY="286.0" styleClass="forgot-pass" stylesheets="@LandingDesign.css" text="Forgot your password?" />
+                        <Text fill="WHITE" layoutX="34.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="58.078125" />
+                        <Text fill="WHITE" layoutX="34.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="58.078125" />
+                        <PasswordField fx:id="password" layoutX="105.0" layoutY="238.0" promptText="Password" styleClass="cardential-field" stylesheets="@LandingDesign.css" />
+                     </children>
+                  </AnchorPane>
+                  <Button layoutX="365.0" layoutY="8.0" mnemonicParsing="false" onAction="#exit" prefHeight="17.0" prefWidth="26.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+                     <graphic>
+                        <ImageView fitHeight="14.0" fitWidth="10.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@reject.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="signuppage" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="800.0">
+         <children>
+            <AnchorPane layoutX="-10.0" layoutY="-10.0" prefHeight="500.0" prefWidth="440.0" styleClass="signup-window" stylesheets="@LandingDesign.css">
+               <children>
+                  <AnchorPane layoutX="20.0" layoutY="28.0" prefHeight="445.0" prefWidth="358.0" styleClass="signin-card" stylesheets="@LandingDesign.css">
+                     <children>
+                        <ImageView fitHeight="81.0" fitWidth="99.0" layoutX="139.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons8-register-50.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="128.0" layoutY="114.0" prefHeight="38.0" prefWidth="102.0" stylesheets="@LandingDesign.css" text="Sign Up" textFill="WHITE">
+                           <font>
+                              <Font name="FrankRuehl" size="31.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <TextField fx:id="username1" layoutX="146.0" layoutY="174.0" promptText="Username" styleClass="cardential-field" stylesheets="@LandingDesign.css" />
+                        <Button fx:id="signupform_btn" layoutX="75.0" layoutY="397.0" mnemonicParsing="false" onAction="#signup" prefHeight="25.0" prefWidth="81.0" styleClass="signin-button" stylesheets="@LandingDesign.css" text="SignUp">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Hyperlink fx:id="haveaccount_btn" layoutX="179.0" layoutY="400.0" onAction="#switchform" styleClass="forgot-pass" stylesheets="@LandingDesign.css" text="already have account?" />
+                        <Text fill="WHITE" layoutX="76.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="58.078125" />
+                        <Text fill="WHITE" layoutX="76.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="58.078125" />
+                        <PasswordField fx:id="password1" layoutX="146.0" layoutY="217.0" promptText="Password" styleClass="cardential-field" stylesheets="@LandingDesign.css" />
+                        <Text fill="WHITE" layoutX="76.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="58.078125" />
+                        <DatePicker fx:id="datepicker" layoutX="146.0" layoutY="308.0" prefHeight="27.0" prefWidth="150.0" promptText="MM\DD\YYYY" styleClass="cardential-field-date" stylesheets="@LandingDesign.css" />
+                        <Text fill="WHITE" layoutX="75.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Day:" wrappingWidth="58.078125" />
+                        <Text fill="WHITE" layoutX="75.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role:" wrappingWidth="58.078125" />
+                        <TextField fx:id="email1" layoutX="147.0" layoutY="259.0" promptText="Email" styleClass="cardential-field" stylesheets="@LandingDesign.css" />
+                        <RadioButton fx:id="rolebtn1" layoutX="146.0" layoutY="357.0" mnemonicParsing="false" onAction="#getroles" text="Employee" textFill="WHITE">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="roles" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rolebtn2" layoutX="238.0" layoutY="357.0" mnemonicParsing="false" onAction="#getroles" text="Citizen" textFill="WHITE" toggleGroup="$roles" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="390.0" layoutY="-10.0" prefHeight="500.0" prefWidth="400.0" styleClass="signup-card" stylesheets="@LandingDesign.css">
+               <children>
+                  <ImageView fitHeight="175.0" fitWidth="198.0" layoutX="113.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ooooooooooooooooooooooooooooooooooo.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="25.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="signin-title" text="Smart Waste Disposal System">
+                     <font>
+                        <Font name="SansSerif Regular" size="26.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="320.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons8-facebook-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="341.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons8-instagram-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="363.0" layoutY="472.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons8-twitter-circled-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="25.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fax: 03-1231234" wrappingWidth="102.0" />
+                  <Text fill="WHITE" layoutX="25.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone: 03-1231234" wrappingWidth="118.0" />
+                  <Text fill="WHITE" layoutX="25.0" layoutY="491.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adress: Tel-Aviv, rehov tov 81" wrappingWidth="162.0" />
+                  <Button layoutX="363.0" layoutY="8.0" mnemonicParsing="false" onAction="#exit" prefHeight="17.0" prefWidth="26.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+                     <graphic>
+                        <ImageView fitHeight="14.0" fitWidth="10.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@reject.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

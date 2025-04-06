@@ -1,0 +1,96 @@
+
+.signin-window{
+    -fx-background-radius: 40px0px0px40px;
+
+    -fx-background-color: linear-gradient(to left bottom, #859970 , #406346);
+}
+.signup-window{
+    -fx-background-color: linear-gradient(to left bottom, #859970 , #406346);
+}
+.signup-card{
+
+    -fx-background-image: url("forest.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-shape: "M 22 0 H 240 V 200 H 22 A 22 22 0 0 1 0 178 V 22 A 22 22 0 0 1 22 0 Z";
+
+}
+
+.signin-card{
+
+    -fx-background-color: #30363f;
+    -fx-opacity: 0.3;
+    -fx-background-radius: 40px;
+}
+.signin-card:hover{
+    -fx-opacity: 0.7;
+}
+
+.logo-card{
+        -fx-background-image: url("forest.jpg");
+        -fx-background-size: cover;
+        -fx-background-repeat: no-repeat;
+}
+
+.cardential-field{
+    -fx-background-color: transparent;
+    -fx-border-width: 0px0px2px0px;
+    -fx-border-color: white;
+    -fx-text-inner-color: white;
+
+}
+.cardential-field .label {
+     -fx-text-fill: white;
+     -fx-background-color: black;
+}
+
+.cardential-field-date{
+        -fx-background-color: transparent;
+        -fx-border-width: 0px0px2px0px;
+        -fx-border-color: white;
+
+}
+.cardential-field-date .text-field{
+         -fx-text-fill: white;
+         -fx-background-color: black;
+         -fx-control-inner-background: white ;
+}
+
+.signin-button{
+    -fx-background-color:#30363f;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+
+}
+
+.signin-button:hover{
+    -fx-background-color:#fff;
+    -fx-text-fill: #30363f;
+
+}
+
+.forgot-pass{
+    -fx-text-fill: white;
+    -fx-border-color: none;
+}
+
+.signin-title{
+    -fx-opacity: 0.7;
+}
+
+.signin-title:hover{
+    -fx-opacity: 0.9;
+}
+
+.btn-exit{
+    -fx-background-color: red;
+    -fx-background-radius: 50px;
+    -fx-opacity: 0.6;
+
+}
+
+.btn-exit:hover{
+    -fx-opacity: 1;
+
+}
