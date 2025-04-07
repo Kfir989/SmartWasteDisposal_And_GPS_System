@@ -20,5 +20,4 @@ public class Route {
     public double distance(Bin bin1, Bin bin2){
         return Math.sqrt(Math.pow(bin2.lon - bin1.lon,2) + Math.pow(bin2.lat- bin1.lat,2));
     }
-
 }
