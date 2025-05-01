@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
@@ -21,42 +28,32 @@
                   <Font name="Freestyle Script" size="25.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="35.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Text>
             <ImageView fitHeight="55.0" fitWidth="50.0" layoutX="151.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@officer.png" />
                </image>
             </ImageView>
-            <Button fx:id="home_btn" layoutX="2.0" layoutY="110.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Home" textFill="WHITE">
+            <Button fx:id="home_btn" layoutX="2.0" layoutY="110.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Home" textFill="#f5f1de">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="schedule_btn" layoutX="2.0" layoutY="167.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Schedule" textFill="WHITE">
+            <Button fx:id="schedule_btn" layoutX="2.0" layoutY="167.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Schedule" textFill="#f5f1de">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="salery_btn" layoutX="2.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Salery" textFill="WHITE">
+            <Button fx:id="salery_btn" layoutX="2.0" layoutY="224.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Salery" textFill="#f5f1de">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="map_btn" layoutX="2.0" layoutY="283.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Map" textFill="WHITE">
+            <Button fx:id="map_btn" layoutX="2.0" layoutY="281.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Map" textFill="#f5f1de">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button layoutX="2.0" layoutY="341.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Comming Soon..." textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Button>
-            <Button fx:id="logout_btn" layoutX="2.0" layoutY="430.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-border-color: none;" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Logout" textFill="WHITE">
+            <Button fx:id="logout_btn" layoutX="2.0" layoutY="430.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-border-color: none;" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Logout" textFill="#f5f1de">
                <font>
                   <Font size="26.0" />
                </font>
@@ -86,13 +83,28 @@
                   <Image url="@icons8-logout-50.png" />
                </image>
             </ImageView>
+            <Label fx:id="empName" layoutX="35.0" layoutY="49.0" text="Employee" textFill="#f5f1de">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="ticket_btn" layoutX="2.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Tickets" textFill="#f5f1de">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons8-contract-64.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="dashboard" layoutX="222.0" prefHeight="486.0" prefWidth="608.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+      <AnchorPane fx:id="dashboard" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css">
          <children>
-            <AnchorPane layoutX="14.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="17.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days on" wrappingWidth="112.0">
+                  <Text fill="#a89d9d" layoutX="37.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shifts" wrappingWidth="81.06591796875">
                      <font>
                         <Font name="Arial" size="29.0" />
                      </font>
@@ -102,21 +114,21 @@
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Text>
-                  <Text layoutX="45.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4/8">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="89.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="79.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons8-pulse-50.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="totalshifts" layoutX="48.0" layoutY="90.0" text="0">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="210.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="220.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="112.0">
+                  <Text fill="#a89d9d" layoutX="38.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="81.06591796875">
                      <font>
                         <Font name="Arial" size="29.0" />
                      </font>
@@ -126,43 +138,43 @@
                         <Font name="Arial" size="28.0" />
                      </font>
                   </Text>
-                  <Text layoutX="63.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="89.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="79.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons8-plane-50.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="daysoff" layoutX="53.0" layoutY="90.0" text="0">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="406.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="421.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="112.0">
+                  <Text fill="#a89d9d" layoutX="44.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="71.0">
                      <font>
                         <Font name="Arial" size="29.0" />
                      </font>
                   </Text>
-                  <Text fill="#a89d9d" layoutX="60.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sick:">
+                  <Text fill="#a89d9d" layoutX="51.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sick:">
                      <font>
                         <Font name="Arial" size="28.0" />
                      </font>
                   </Text>
-                  <Text layoutX="63.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="79.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons8-faint-50.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="dayssick" layoutX="51.0" layoutY="91.0" text="0">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-            <Button layoutX="581.0" layoutY="1.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+            <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
                <graphic>
                   <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -171,109 +183,62 @@
                   </ImageView>
                </graphic>
             </Button>
-            <AnchorPane layoutX="144.0" layoutY="13.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="153.0" layoutY="13.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text layoutX="74.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
+                  <Text fill="#25433c" layoutX="74.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
                      <font>
-                        <Font name="Arial Bold Italic" size="27.0" />
+                        <Font name="Arial Bold" size="27.0" />
                      </font>
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="13.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="17.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <BarChart layoutX="-10.0" layoutY="11.0" prefHeight="233.0" prefWidth="272.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </BarChart>
+                  <ProgressIndicator id="progress-indicator" fx:id="progressIndicator" layoutX="31.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" progress="0.99999999" stylesheets="@EmployeeDesign.css">
+                     <effect>
+                        <Bloom>
+                           <input>
+                              <ColorAdjust brightness="-0.09">
+                                 <input>
+                                    <ColorAdjust brightness="-0.41" contrast="1.0" hue="0.14" />
+                                 </input>
+                              </ColorAdjust>
+                           </input>
+                        </Bloom>
+                     </effect>
+                  </ProgressIndicator>
+                  <AnchorPane id="pi-mask" layoutX="52.0" layoutY="42.0" prefHeight="159.0" prefWidth="158.0" styleClass="pi-mask" stylesheets="@EmployeeDesign.css">
+                     <children>
+                        <ProgressIndicator layoutX="39.0" layoutY="37.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="81.0" />
+                        <ImageView fitHeight="93.0" fitWidth="50.0" layoutX="54.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons8-like-100.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <Text fill="#a89d9d" layoutX="76.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Quality Index">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="302.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="306.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <PieChart layoutX="14.0" layoutY="10.0" prefHeight="226.0" prefWidth="234.0" />
+                  <PieChart id="pie-chart" fx:id="piechart" layoutX="-13.0" layoutY="10.0" prefHeight="226.0" prefWidth="234.0" stylesheets="@EmployeeDesign.css" />
+                  <Text fill="#a89d9d" layoutX="101.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shift Chart:">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="schdule" layoutX="222.0" prefHeight="486.0" prefWidth="608.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+      <AnchorPane fx:id="schdule" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
          <children>
-            <AnchorPane layoutX="14.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days on" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="15.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="this month:">
-                     <font>
-                        <Font name="Arial" size="26.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="45.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4/8">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="89.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons8-pulse-50.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="210.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="60.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="off:">
-                     <font>
-                        <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="63.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="89.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons8-plane-50.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="406.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="60.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sick:">
-                     <font>
-                        <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="63.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons8-faint-50.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Button layoutX="581.0" layoutY="1.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+            <Button fx:id="exit" layoutX="590.0" layoutY="1.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
                <graphic>
                   <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -282,7 +247,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <AnchorPane layoutX="144.0" layoutY="13.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="160.0" layoutY="14.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
                   <Text layoutX="84.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule">
                      <font>
@@ -291,100 +256,26 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="13.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="46.0" layoutY="77.0" prefHeight="403.0" prefWidth="520.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <BarChart layoutX="-10.0" layoutY="11.0" prefHeight="233.0" prefWidth="272.0">
-                     <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" />
-                     </yAxis>
-                  </BarChart>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="302.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <PieChart layoutX="14.0" layoutY="10.0" prefHeight="226.0" prefWidth="234.0" />
+                  <GridPane fx:id="schedulepane" layoutX="21.0" layoutY="24.0" prefHeight="368.0" prefWidth="478.0" style="-fx-hgap: 20px; -fx-vgap: 20px;">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="salery" layoutX="222.0" prefHeight="486.0" prefWidth="608.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+      <AnchorPane fx:id="salery" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
          <children>
-            <AnchorPane layoutX="14.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days on" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="15.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="this month:">
-                     <font>
-                        <Font name="Arial" size="26.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="45.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4/8">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="89.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons8-pulse-50.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="210.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="60.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="off:">
-                     <font>
-                        <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="63.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="89.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons8-plane-50.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="406.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Days" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="60.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sick:">
-                     <font>
-                        <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="63.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons8-faint-50.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Button layoutX="581.0" layoutY="1.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+            <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
                <graphic>
                   <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -393,7 +284,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <AnchorPane layoutX="144.0" layoutY="13.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="160.0" layoutY="14.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
                   <Text layoutX="104.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salery">
                      <font>
@@ -402,28 +293,28 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="13.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="46.0" layoutY="76.0" prefHeight="403.0" prefWidth="520.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <BarChart layoutX="-10.0" layoutY="11.0" prefHeight="233.0" prefWidth="272.0">
-                     <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" />
-                     </yAxis>
-                  </BarChart>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="302.0" layoutY="235.0" prefHeight="245.0" prefWidth="262.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <PieChart layoutX="14.0" layoutY="10.0" prefHeight="226.0" prefWidth="234.0" />
+                  <GridPane fx:id="salerypane" layoutX="21.0" layoutY="13.0" prefHeight="379.0" prefWidth="478.0" style="-fx-vgap: 20px;;">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="map" layoutX="222.0" prefHeight="486.0" prefWidth="608.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css">
+      <AnchorPane fx:id="map" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
          <children>
-            <Button layoutX="581.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+            <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
                <graphic>
                   <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -432,7 +323,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <AnchorPane layoutX="144.0" layoutY="13.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="164.0" layoutY="14.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
                   <Text layoutX="118.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Map">
                      <font>
@@ -460,6 +351,124 @@
                   <Button layoutX="28.0" layoutY="7.0" mnemonicParsing="false" onAction="#clickstart" prefHeight="37.0" prefWidth="103.0" text="Start" />
                   <Button layoutX="28.0" layoutY="52.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="103.0" text="Stop" />
                   <Button layoutX="28.0" layoutY="97.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="103.0" text="Set Route" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="Tickets" layoutX="222.0" prefHeight="486.0" prefWidth="608.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+         <children>
+            <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+               <graphic>
+                  <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@reject.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <AnchorPane layoutX="164.0" layoutY="14.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+               <children>
+                  <Text layoutX="98.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tickets">
+                     <font>
+                        <Font name="Arial Bold Italic" size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <TableView fx:id="mytickets" layoutX="30.0" layoutY="85.0" prefHeight="395.0" prefWidth="557.0" stylesheets="@CitizenPage.css">
+               <columns>
+                  <TableColumn fx:id="Numcolumn" prefWidth="35.0" text="No" />
+                  <TableColumn fx:id="Reasoncolumn" prefWidth="108.0" text="Reason" />
+                  <TableColumn fx:id="Datecolumn" prefWidth="108.0" text="Date" />
+                  <TableColumn fx:id="Usercolumn" prefWidth="99.0" text="Username" />
+                  <TableColumn fx:id="optionscolumn" prefWidth="205.0" text="Options" />
+               </columns>
+            </TableView>
+            <AnchorPane fx:id="ticketresponsepane" layoutX="26.0" layoutY="87.0" prefHeight="385.0" prefWidth="564.0" style="-fx-background-color: linear-gradient(to left bottom, #2D3436 , #000000);; -fx-background-radius: 40px;" visible="false">
+               <children>
+                  <Label layoutX="143.0" layoutY="30.0" text="Ticket:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="35.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="71.0" layoutY="85.0" prefHeight="27.0" prefWidth="50.0" text="Title:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="71.0" layoutY="112.0" prefHeight="27.0" prefWidth="103.0" text="Description:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="ticketreason" layoutX="123.0" layoutY="85.0" prefHeight="27.0" prefWidth="379.0" style="-fx-border-color: white;" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="ticketdescription" alignment="TOP_LEFT" layoutX="71.0" layoutY="145.0" prefHeight="221.0" prefWidth="433.0" style="-fx-border-color: white;" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="507.0" layoutY="19.0" mnemonicParsing="false" onAction="#hiderespondwindow" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+                     <graphic>
+                        <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@reject.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="ticketnumber" layoutX="256.0" layoutY="30.0" prefHeight="41.0" prefWidth="194.0" text="Number" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="respondpane" layoutX="25.0" layoutY="85.0" prefHeight="385.0" prefWidth="564.0" style="-fx-background-color: linear-gradient(to left bottom, #2D3436 , #000000);; -fx-background-radius: 40px;" visible="false">
+               <children>
+                  <Label layoutX="143.0" layoutY="30.0" text="Ticket:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="35.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="71.0" layoutY="85.0" prefHeight="27.0" prefWidth="50.0" text="Title:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="71.0" layoutY="112.0" prefHeight="27.0" prefWidth="103.0" text="Response:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="respondticketreason" layoutX="123.0" layoutY="85.0" prefHeight="27.0" prefWidth="379.0" style="-fx-border-color: white;" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="507.0" layoutY="19.0" mnemonicParsing="false" onAction="#hiderespondwindow" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+                     <graphic>
+                        <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@reject.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="respondticketnumber" layoutX="256.0" layoutY="30.0" prefHeight="41.0" prefWidth="194.0" text="Number" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="respondtext" layoutX="69.0" layoutY="148.0" prefHeight="187.0" prefWidth="433.0" promptText="Enter your response here" style="-fx-control-inner-background: black; -fx-text-fill: white; -fx-prompt-text-fill: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextArea>
+                  <Button layoutX="238.0" layoutY="346.0" mnemonicParsing="false" onAction="#submitticketrespond" style="-fx-background-color: transparent; -fx-background-radius: 30px; -fx-border-color: white; -fx-border-radius: 30px;" text="Save changes" textFill="WHITE" />
                </children>
             </AnchorPane>
          </children>

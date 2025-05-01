@@ -1,0 +1,39 @@
+// schedule card:
+.card{
+    -fx-background-color: black;
+    -fx-background-radius: 30px;
+    -fx-opacity: 0.7;
+}
+.card:hover{
+   -fx-opacity: 1;
+}
+.card-header{
+    -fx-background-color: linear-gradient(to left bottom, #859970 , #406346);
+    -fx-background-radius: 30px30px0px0px;
+
+}
+
+//salery card:
+
+.scard{
+    -fx-background-color: linear-gradient(to left bottom, #859970 , #406346);
+    -fx-background-radius: 30px;
+}
+
+.dbutton{
+    -fx-background-color: black;
+    -fx-border-color: transparent;
+    -fx-opacity: 0.7;
+    -fx-background-radius: 30px;
+    -fx-text-fill: #f1f5de;
+    -fx-cursor: hand;
+}
+.dbutton:hover{
+    -fx-opacity: 1;
+}
+
+.dpane{
+    -fx-background-color: black;
+    -fx-background-radius:30px0px0px30px;
+    -fx-opacity:0.7;
+}

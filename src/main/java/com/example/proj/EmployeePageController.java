@@ -1,34 +1,43 @@
 package com.example.proj;
 
+import com.example.proj.DB.Db;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import javafx.scene.chart.PieChart;
+import javafx.collections.ObservableList;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 
-public class EmployeePageController implements Initializable {
+public class EmployeePageController extends UserControllers implements Initializable {
+
+    @FXML
+    private ProgressIndicator progressIndicator;
+
+    @FXML
+    private PieChart piechart;
 
     @FXML
     private AnchorPane dashboard;
 
     @FXML
     private Button home_btn;
-
-    @FXML
-    private Button logout_btn;
 
     @FXML
     private AnchorPane map;
@@ -49,15 +58,195 @@ public class EmployeePageController implements Initializable {
     private Button schedule_btn;
 
     @FXML
-    private BorderPane pane;
+    private Label empName;
+
+    @FXML
+    private Label daysoff;
+
+    @FXML
+    private Label dayssick;
+
+    @FXML
+    private Label totalshifts;
+
+    @FXML
+    private GridPane schedulepane;
+
+    @FXML
+    private GridPane salerypane;
+
+    @FXML
+    private Button ticket_btn;
+
+    @FXML
+    private AnchorPane Tickets;
+
+    @FXML
+    private TableView<Reports> mytickets;
+
+    @FXML
+    private TableColumn<Reports, String> optionscolumn;
+
+    @FXML
+    private TableColumn<Reports, String> Usercolumn;
+
+    @FXML
+    private TableColumn<Reports, String> Datecolumn;
+
+    @FXML
+    private TableColumn<Reports, String> Numcolumn;
+
+    @FXML
+    private TableColumn<Reports, String> Reasoncolumn;
+
+    @FXML
+    private Label ticketdescription;
+
+    @FXML
+    private Label ticketnumber;
+
+    @FXML
+    private Label respondticketnumber;
+
+    @FXML
+    private AnchorPane ticketresponsepane;
+
+    @FXML
+    private Label ticketreason;
+
+    @FXML
+    private Label respondticketreason;
+
+    @FXML
+    private AnchorPane respondpane;
+
+    @FXML
+    private TextArea respondtext;
 
     @FXML
     private WebView webv;
-    // 31.612148, 34.768159], 14)
+    // 31.612148, 34.768159], 14) - KG
     @FXML
     private WebEngine engine;
 
-    public void exit(){System.exit(0);}
+    private final Db db = new Db();
+
+    public void Setusersession(String user) {
+        empName.setText(user);
+        try {
+            loadDashboardData(user);
+            loadScheduleCards(user);
+            loadSalaryCards(user);
+            loadTicketTable(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadDashboardData(String user) throws SQLException {
+        String query = "SELECT * FROM userdashboard WHERE username = '" + user + "'";
+        ResultSet rs = db.getdata(query);
+        if (rs.next()) {
+            ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
+                    new PieChart.Data("Completed", rs.getInt("completed")),
+                    new PieChart.Data("Ahead", rs.getInt("ahead")),
+                    new PieChart.Data("Canceled", rs.getInt("shifts") - (rs.getInt("completed") + rs.getInt("ahead")))
+            );
+            piechart.setLegendVisible(false);
+            piechart.setData(pieData);
+            piechart.setPrefSize(300, 230);
+
+            progressIndicator.setProgress(rs.getDouble("empindex"));
+            totalshifts.setText("" + rs.getInt("shifts"));
+            daysoff.setText("" + rs.getInt("offdays"));
+            dayssick.setText("" + rs.getInt("sickdays"));
+        }
+    }
+
+    private void loadScheduleCards(String user) throws Exception {
+        String query = "SELECT * FROM userschedule WHERE username = '" + user + "'";
+        ResultSet rs = db.getdata(query);
+        int column = 0, row = 0;
+        while (rs.next()) {
+            FXMLLoader cardloader = new FXMLLoader(getClass().getResource("schdulecard.fxml"));
+            AnchorPane card = cardloader.load();
+            CardController CC = cardloader.getController();
+            CC.setCarddata(
+                    rs.getString("date"),
+                    rs.getString("day"),
+                    rs.getString("start"),
+                    rs.getString("end"),
+                    rs.getString("section")
+            );
+            schedulepane.add(card, column++, row);
+            if (column == 3) {
+                column = 0;
+                row++;
+            }
+        }
+    }
+
+    private void loadSalaryCards(String user) throws Exception {
+        String query = "SELECT * FROM salerydata WHERE username = '" + user + "'";
+        ResultSet rs = db.getdata(query);
+        int row = 0;
+        while (rs.next()) {
+            FXMLLoader cardloader = new FXMLLoader(getClass().getResource("salerycard.fxml"));
+            AnchorPane card = cardloader.load();
+            SaleryController SC = cardloader.getController();
+            SC.setCarddata(
+                    rs.getInt("daysworked"),
+                    rs.getInt("hoursworked"),
+                    rs.getString("month"),
+                    String.valueOf(rs.getFloat("salery")),
+                    rs.getInt("serialnumber"),
+                    rs.getInt("totalhours")
+            );
+            salerypane.add(card, 0, row++);
+        }
+    }
+
+    private void loadTicketTable(String user) throws SQLException {
+        ResultSet rs = db.getdata("SELECT * FROM citizenreports");
+        ObservableList<Reports> dataList = FXCollections.observableArrayList();
+        int count = 1;
+        String buttonstyle = "-fx-background-color: transparent; -fx-border-radius: 30px;-fx-text-fill: white;-fx-border-width: 1;-fx-border-color: white;";
+
+        while (rs.next()) {
+            if ("Responded".equals(rs.getString("response"))) continue;
+
+            String ID = rs.getString("ID");
+            String reason = rs.getString("reason");
+            String description = rs.getString("description");
+
+            Button view = new Button("View ticket");
+            view.setStyle(buttonstyle);
+            view.setOnMouseClicked(e -> {
+                ticketnumber.setText(ID);
+                ticketreason.setText(reason);
+                ticketdescription.setText(description);
+                ticketresponsepane.setVisible(true);
+            });
+
+            Button respond = new Button("Respond ticket");
+            respond.setStyle(buttonstyle);
+            respond.setOnMouseClicked(e -> {
+                respondticketnumber.setText(ID);
+                respondticketreason.setText(reason);
+                respondpane.setVisible(true);
+            });
+
+            HBox buttons = new HBox(10, view, respond);
+            dataList.add(new Reports("" + count++, reason, rs.getString("date"), rs.getString("username"), buttons));
+        }
+
+        Numcolumn.setCellValueFactory(new PropertyValueFactory<>("no"));
+        Reasoncolumn.setCellValueFactory(new PropertyValueFactory<>("reason"));
+        Datecolumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        Usercolumn.setCellValueFactory(new PropertyValueFactory<>("response"));
+        optionscolumn.setCellValueFactory(new PropertyValueFactory<>("buttons"));
+        mytickets.setItems(dataList);
+    }
 
     public void switchform(ActionEvent e){
 
@@ -66,24 +255,35 @@ public class EmployeePageController implements Initializable {
             schdule.setVisible(false);
             salery.setVisible(false);
             map.setVisible(false);
+            Tickets.setVisible(false);
         }
         else if (e.getSource() == schedule_btn){
             dashboard.setVisible(false);
             schdule.setVisible(true);
             salery.setVisible(false);
+            Tickets.setVisible(false);
             map.setVisible(false);
         }
         else if (e.getSource() == salery_btn){
             dashboard.setVisible(false);
             schdule.setVisible(false);
             salery.setVisible(true);
+            Tickets.setVisible(false);
             map.setVisible(false);
         }
         else if (e.getSource() == map_btn){
             dashboard.setVisible(false);
             schdule.setVisible(false);
             salery.setVisible(false);
+            Tickets.setVisible(false);
             map.setVisible(true);
+        }
+        else if (e.getSource() == ticket_btn){
+            dashboard.setVisible(false);
+            schdule.setVisible(false);
+            salery.setVisible(false);
+            map.setVisible(false);
+            Tickets.setVisible(true);
         }
     }
 
@@ -99,6 +299,27 @@ public class EmployeePageController implements Initializable {
         }catch (Exception e){e.printStackTrace();}
 
     }
+
+    public void submitticketrespond(){
+        db.getupdate("UPDATE citizenreports SET respond = '" + respondtext.getText() + "', response = 'Responded' WHERE ID = " + respondticketnumber.getText());
+        try{
+            loadTicketTable(empName.getText());
+        }catch (Exception e){e.printStackTrace();}
+        respondtext.setText("");
+        Alert message = new Alert(Alert.AlertType.INFORMATION);
+        message.setTitle("Success");
+        message.setContentText("Ticket has been replied.");
+        message.show();
+        respondpane.setVisible(false);
+    }
+
+    public void hiderespondwindow(){
+        respondpane.setVisible(false);
+        ticketresponsepane.setVisible(false);
+    }
+
+
+    // functions related to the algorithm:
 
     public void addMarker(double lat, double lon, String label, String color) {
         webv.getEngine().executeScript("window.javaConnector.addMarker(" + lat + "," + lon + ",'" + label + "','" + color + "');");
@@ -180,7 +401,12 @@ public class EmployeePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+
         engine = webv.getEngine();
+
+        //set map
         String htmlContent = """
             <!DOCTYPE html>
             <html>
@@ -237,4 +463,5 @@ public class EmployeePageController implements Initializable {
         engine.loadContent(htmlContent);
 
     }
+
 }

@@ -1,16 +1,18 @@
 .side-menu{
-    -fx-background-color: linear-gradient(to left bottom, #11998E , #38EF7D);
-    -fx-border-width: 0px2px0px0px;
-    -fx-border-color: white;
+   /* -fx-background-color: linear-gradient(to left bottom, #859970 , #406346);*/
+    -fx-background-color: linear-gradient(to left bottom, #2D3436 , #000000);
+    -fx-border-width: 0px1px0px0px;
+    -fx-border-color: #25433c;
 }
 
 .top-bar{
-    -fx-background-color: linear-gradient(to left bottom, #11998E , #38EF7D)
+    -fx-background-image: url("background1.png");
+    /*-fx-background-color: linear-gradient(to left bottom,#406346 ,#859970);*/
 }
 
 .btns-menu{
     -fx-background-color: transparent;
-    -fx-border-color: #fff;
+    -fx-border-color: #25433c;
     -fx-border-width: 2px0px2px0px;
     -fx-opacity: 0.3;
 
@@ -22,7 +24,7 @@
 
 .info-boxes{
     -fx-background-color: #fff;
-    -fx-opacity: 0.4;
+    -fx-opacity: 0.8;
     -fx-background-radius: 30px;
 }
 
@@ -30,5 +32,27 @@
         -fx-background-color: #fff;
         -fx-background-radius: 10px;
             -fx-opacity: 0.9;
+}
+
+.pie-chart {
+    -fx-background-color: transparent;
+}
+.default-color0.chart-pie {
+    -fx-pie-color: #66bb6a;
+}
+.default-color1.chart-pie {
+    -fx-pie-color: #ffb74d;
+}
+.default-color2.chart-pie {
+    -fx-pie-color: #ef5350;
+}
+
+.progress-indicator {
+    -fx-progress-color: #64b5f6;
+}
+
+.pi-mask{
+       -fx-background-radius: 90px;
+       -fx-background-color: #fff;
 }
 

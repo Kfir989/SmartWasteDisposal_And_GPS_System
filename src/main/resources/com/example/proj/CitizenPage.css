@@ -1,0 +1,29 @@
+.table-view {
+    /*needs to change this to fit in color*/
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-selection-bar: #b7e1cd;
+    -fx-selection-bar-non-focused: #9ccc65;
+}
+.table-view .table-cell {
+    -fx-alignment: center;
+    -fx-text-fill: white;
+}
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 5px;
+}
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-border-color: transparent;
+}
+
+
+

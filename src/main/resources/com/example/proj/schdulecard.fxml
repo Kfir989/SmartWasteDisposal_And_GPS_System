@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="card" prefHeight="180.0" prefWidth="150.0" styleClass="card" stylesheets="@schdulecard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proj.CardController">
+   <children>
+      <Label fx:id="carddate" layoutX="17.0" layoutY="58.0" text="Label" textFill="#f5f1de">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label fx:id="cardstart" layoutX="14.0" layoutY="91.0" text="Label" textFill="#f5f1de">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label fx:id="cardend" layoutX="85.0" layoutY="91.0" text="Label" textFill="#f5f1de">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label fx:id="cardsection" layoutX="62.0" layoutY="134.0" text="Label" textFill="#f5f1de">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <AnchorPane prefHeight="44.0" prefWidth="151.0" styleClass="card-header" stylesheets="@schdulecard.css">
+         <children>
+            <Label fx:id="cardday" layoutX="43.0" layoutY="5.0" prefHeight="35.0" prefWidth="97.0" text="Monday" textFill="#f5f1de">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="72.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" />
+   </children>
+</AnchorPane>

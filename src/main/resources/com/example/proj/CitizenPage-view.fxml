@@ -2,6 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,11 +19,6 @@
             <Text fill="WHITE" layoutX="33.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back,">
                <font>
                   <Font name="Freestyle Script" size="25.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" layoutX="48.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Citizen">
-               <font>
-                  <Font name="System Bold" size="20.0" />
                </font>
             </Text>
             <ImageView fitHeight="55.0" fitWidth="50.0" layoutX="151.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
@@ -38,12 +36,12 @@
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button layoutX="2.0" layoutY="341.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Comming Soon..." textFill="WHITE">
+            <Button layoutX="6.0" layoutY="380.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Comming Soon..." textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button layoutX="2.0" layoutY="430.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-border-color: none;" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Logout" textFill="WHITE">
+            <Button layoutX="2.0" layoutY="440.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-border-color: none;" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Logout" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
@@ -55,33 +53,43 @@
             </ImageView>
             <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icons8-report-50.png" />
+                  <Image url="@icons8-document-50.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icons8-logout-50.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="Citizenname" layoutX="48.0" layoutY="49.0" text="Citizen" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="myreport_btn" layoutX="2.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="My Reports" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons8-report-50.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="dashboard" layoutX="223.0" prefHeight="500.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css">
          <children>
-            <AnchorPane layoutX="423.0" layoutY="364.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="423.0" layoutY="362.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
+                  <Text fill="#a89d9d" layoutX="23.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
                      <font>
                         <Font name="Arial" size="29.0" />
                      </font>
                   </Text>
-                  <Text fill="#a89d9d" layoutX="34.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="made:">
+                  <Text fill="#a89d9d" layoutX="42.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="made:">
                      <font>
                         <Font name="Arial" size="26.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="52.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Text>
                   <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
@@ -89,23 +97,23 @@
                         <Image url="@arrow.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="crtotal" layoutX="39.0" layoutY="90.0" text="0">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="423.0" layoutY="219.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
+                  <Text fill="#a89d9d" layoutX="23.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
                      <font>
                         <Font name="Arial" size="29.0" />
                      </font>
                   </Text>
-                  <Text fill="#a89d9d" layoutX="32.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="anwserd:">
+                  <Text fill="#a89d9d" layoutX="22.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="anwserd:">
                      <font>
                         <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="52.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Text>
                   <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
@@ -113,23 +121,23 @@
                         <Image url="@objective.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="crresponded" layoutX="39.0" layoutY="92.0" text="0">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="423.0" layoutY="74.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
+                  <Text fill="#a89d9d" layoutX="23.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
                      <font>
                         <Font name="Arial" size="29.0" />
                      </font>
                   </Text>
-                  <Text fill="#a89d9d" layoutX="41.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="waiting:">
+                  <Text fill="#a89d9d" layoutX="32.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="waiting:">
                      <font>
                         <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="52.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="29">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Text>
                   <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
@@ -137,6 +145,11 @@
                         <Image url="@no-concentration.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="crwaiting" layoutX="39.0" layoutY="91.0" text="0">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
@@ -152,97 +165,116 @@
                <children>
                   <Text layoutX="74.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
                      <font>
-                        <Font name="Arial Bold Italic" size="27.0" />
+                        <Font name="Arial Bold" size="27.0" />
                      </font>
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="18.0" layoutY="77.0" prefHeight="415.0" prefWidth="377.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="18.0" layoutY="77.0" prefHeight="415.0" prefWidth="385.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
-                  <Text layoutX="84.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Importent news:">
+                  <Text layoutX="88.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Importent news:">
                      <font>
                         <Font name="Arial Bold Italic" size="27.0" />
                      </font>
                   </Text>
+                  <AnchorPane layoutX="26.0" layoutY="51.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: black; -fx-background-radius: 30px;">
+                     <children>
+                        <AnchorPane prefHeight="53.0" prefWidth="86.0" style="-fx-background-color: #256643; -fx-background-radius: 30px0px0px30px;">
+                           <children>
+                              <Text fill="WHITE" layoutX="13.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T143">
+                                 <font>
+                                    <Font name="System Bold Italic" size="28.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <Text fill="WHITE" layoutX="93.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Is currently down due to a maintanence." wrappingWidth="213.0205078125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="123.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: black; -fx-background-radius: 30px;">
+                     <children>
+                        <AnchorPane prefHeight="53.0" prefWidth="86.0" style="-fx-background-color: #256643; -fx-background-radius: 30px0px0px30px;">
+                           <children>
+                              <Text fill="WHITE" layoutX="13.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T145">
+                                 <font>
+                                    <Font name="System Bold Italic" size="28.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <Text fill="WHITE" layoutX="93.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evacuation will be delayed by 24 hours." wrappingWidth="213.0205078125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="194.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: black; -fx-background-radius: 30px;">
+                     <children>
+                        <AnchorPane prefHeight="53.0" prefWidth="86.0" style="-fx-background-color: #256643; -fx-background-radius: 30px0px0px30px;">
+                           <children>
+                              <Text fill="WHITE" layoutX="13.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T135">
+                                 <font>
+                                    <Font name="System Bold Italic" size="28.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <Text fill="WHITE" layoutX="93.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Is currently down due to a maintanence." wrappingWidth="213.0205078125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="24.0" layoutY="266.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: black; -fx-background-radius: 30px;">
+                     <children>
+                        <AnchorPane prefHeight="53.0" prefWidth="86.0" style="-fx-background-color: #256643; -fx-background-radius: 30px0px0px30px;">
+                           <children>
+                              <Text fill="WHITE" layoutX="13.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T133">
+                                 <font>
+                                    <Font name="System Bold Italic" size="28.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <Text fill="WHITE" layoutX="93.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Is currently down due to a maintanence." wrappingWidth="213.0205078125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <Text layoutX="86.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please do not report on a known problem." />
+                  <AnchorPane layoutX="24.0" layoutY="338.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: black; -fx-background-radius: 30px;">
+                     <children>
+                        <AnchorPane prefHeight="53.0" prefWidth="86.0" style="-fx-background-color: #256643; -fx-background-radius: 30px0px0px30px;">
+                           <children>
+                              <Text fill="WHITE" layoutX="13.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T172">
+                                 <font>
+                                    <Font name="System Bold Italic" size="28.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <Text fill="WHITE" layoutX="93.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evacuation will be delayed by 24 hours." wrappingWidth="213.0205078125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="report" layoutX="223.0" prefHeight="500.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
          <children>
-            <AnchorPane layoutX="423.0" layoutY="364.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="34.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="made:">
-                     <font>
-                        <Font name="Arial" size="26.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="43.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@objective.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="423.0" layoutY="219.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="32.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="anwserd:">
-                     <font>
-                        <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="43.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@arrow.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="423.0" layoutY="74.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
-               <children>
-                  <Text fill="#a89d9d" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="112.0">
-                     <font>
-                        <Font name="Arial" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="41.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="waiting:">
-                     <font>
-                        <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="43.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="29">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="88.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@no-concentration.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+            <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
                <graphic>
                   <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -251,42 +283,146 @@
                   </ImageView>
                </graphic>
             </Button>
-            <AnchorPane layoutX="144.0" layoutY="13.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <AnchorPane layoutX="164.0" layoutY="14.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
                   <Text layoutX="101.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report">
+                     <font>
+                        <Font name="Arial Bold" size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="18.0" layoutY="77.0" prefHeight="415.0" prefWidth="581.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+               <children>
+                  <Text layoutX="22.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname:" wrappingWidth="112.0">
+                     <font>
+                        <Font name="Arial" size="21.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="22.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="112.0">
+                     <font>
+                        <Font name="Arial" size="21.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="22.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bin ID:" wrappingWidth="112.0">
+                     <font>
+                        <Font name="Arial" size="21.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="fdescription" alignment="TOP_LEFT" layoutX="315.0" layoutY="116.0" prefHeight="241.0" prefWidth="245.0" promptText="Enter your description here..." style="-fx-border-color: black;" />
+                  <TextField fx:id="firstname" layoutX="134.0" layoutY="88.0" promptText="John" style="-fx-border-color: black;" />
+                  <TextField fx:id="fbinid" layoutX="134.0" layoutY="190.0" promptText="T132" style="-fx-border-color: black;" />
+                  <DatePicker fx:id="fdate" layoutX="134.0" layoutY="227.0" prefHeight="27.0" prefWidth="151.0" promptText="DD/MM/YYYY" style="-fx-border-color: black;" />
+                  <Button layoutX="371.0" layoutY="374.0" mnemonicParsing="false" onAction="#submitTicket" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: linear-gradient(to left bottom, #859970 , #406346); -fx-cursor: hand; -fx-border-color: transparent; -fx-background-radius: 30px;" text="Submit" textFill="WHITE" />
+                  <AnchorPane prefHeight="69.0" prefWidth="581.0" style="-fx-background-color: black; -fx-background-radius: 30px30px0px0px;">
+                     <children>
+                        <Text fill="#f5f1de" layoutX="184.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Submit A Ticket:">
+                           <font>
+                              <Font name="Arial Bold Italic" size="27.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <Text layoutX="315.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="158.0">
+                     <font>
+                        <Font name="Arial" size="21.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="22.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname:" wrappingWidth="112.0">
+                     <font>
+                        <Font name="Arial" size="21.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="lastname" layoutX="134.0" layoutY="122.0" promptText="Smith" style="-fx-border-color: black;" />
+                  <Text layoutX="22.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason:" wrappingWidth="112.0">
+                     <font>
+                        <Font name="Arial" size="21.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="freason" layoutX="134.0" layoutY="156.0" promptText="Broken bin" style="-fx-border-color: black;" />
+                  <AnchorPane layoutX="14.0" layoutY="269.0" prefHeight="132.0" prefWidth="272.0" style="-fx-background-color: black; -fx-background-radius: 30px;">
+                     <children>
+                        <Text fill="WHITE" layoutX="99.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note!" underline="true">
+                           <font>
+                              <Font name="Tempus Sans ITC" size="27.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="22.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill all necessery data and make sure that the bin ID is written correctly." wrappingWidth="222.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="Myreports" layoutX="223.0" prefHeight="500.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+         <children>
+            <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+               <graphic>
+                  <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@reject.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <AnchorPane layoutX="164.0" layoutY="14.0" prefHeight="50.0" prefWidth="289.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+               <children>
+                  <Text layoutX="71.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Reports">
                      <font>
                         <Font name="Arial Bold Italic" size="27.0" />
                      </font>
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="18.0" layoutY="77.0" prefHeight="415.0" prefWidth="377.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
+            <TableView fx:id="myreports" layoutX="30.0" layoutY="85.0" prefHeight="395.0" prefWidth="557.0" stylesheets="@CitizenPage.css">
+               <columns>
+                  <TableColumn fx:id="Numcolumn" prefWidth="35.0" text="No" />
+                  <TableColumn fx:id="Reasoncolumn" prefWidth="108.0" text="Reason" />
+                  <TableColumn fx:id="Datecolumn" prefWidth="108.0" text="Date" />
+                  <TableColumn fx:id="Responsecolumn" prefWidth="112.0" text="Response" />
+                  <TableColumn fx:id="optionscolumn" prefWidth="192.0" text="Options" />
+               </columns>
+            </TableView>
+            <AnchorPane fx:id="ticketresponsepane" layoutX="26.0" layoutY="87.0" prefHeight="385.0" prefWidth="564.0" style="-fx-background-color: linear-gradient(to left bottom, #2D3436 , #000000);; -fx-background-radius: 40px;" visible="false">
                <children>
-                  <Text layoutX="84.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Submit A Ticket:" underline="true">
+                  <Label layoutX="143.0" layoutY="30.0" text="Ticket Response" textFill="WHITE">
                      <font>
-                        <Font name="Arial Bold Italic" size="27.0" />
+                        <Font name="Arial Bold" size="35.0" />
                      </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="22.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="112.0">
+                  </Label>
+                  <Label layoutX="71.0" layoutY="85.0" prefHeight="27.0" prefWidth="50.0" text="Title:" textFill="WHITE">
                      <font>
-                        <Font name="Arial" size="29.0" />
+                        <Font name="Arial" size="18.0" />
                      </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="22.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="112.0">
+                  </Label>
+                  <Label layoutX="71.0" layoutY="112.0" prefHeight="27.0" prefWidth="103.0" text="Response:" textFill="WHITE">
                      <font>
-                        <Font name="Arial" size="29.0" />
+                        <Font name="Arial" size="18.0" />
                      </font>
-                  </Text>
-                  <Text fill="#a89d9d" layoutX="22.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bin ID:" wrappingWidth="112.0">
+                  </Label>
+                  <Label fx:id="responsetitle" layoutX="123.0" layoutY="85.0" prefHeight="27.0" prefWidth="379.0" style="-fx-border-color: white;" textFill="WHITE">
                      <font>
-                        <Font name="Arial" size="29.0" />
+                        <Font name="Arial" size="18.0" />
                      </font>
-                  </Text>
-                  <TextField layoutX="23.0" layoutY="215.0" prefHeight="147.0" prefWidth="335.0" />
-                  <TextField layoutX="134.0" layoutY="85.0" />
-                  <TextField layoutX="134.0" layoutY="179.0" />
-                  <DatePicker layoutX="134.0" layoutY="131.0" />
-                  <Button layoutX="297.0" layoutY="376.0" mnemonicParsing="false" text="Submit" />
+                  </Label>
+                  <Label fx:id="responsedescription" alignment="TOP_LEFT" layoutX="71.0" layoutY="145.0" prefHeight="221.0" prefWidth="433.0" style="-fx-border-color: white;" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="507.0" layoutY="19.0" mnemonicParsing="false" onAction="#hiderespondwindow" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+                     <graphic>
+                        <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@reject.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
          </children>
