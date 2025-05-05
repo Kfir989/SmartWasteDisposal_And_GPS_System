@@ -338,6 +338,16 @@ public class EmployeePageController extends UserControllers implements Initializ
     public void clickstart(){
         clearMapMarkers();
         // 1. טען פחים מה-DB
+
+        //List<Bin> bins = new ArrayList<>();
+        //try{
+        //    ResultSet rs =db.getdata("SELECT id, lat, lon, fillpercent FROM bins");
+        //    while (rs.next()){
+        //        bins.add(new Bin(rs.getInt("ID"), rs.getDouble("lat"), rs.getDouble("lon"), rs.getInt("fillpercent")));
+        //    }
+        //}catch(Exception e){e.printStackTrace();}
+
+
         List<Bin> bins = DbHelper.loadBinsFromDB(); // או BinDAO.getAllBinsFromDB() אם אתה משתמש במחלקה חיצונית
 
         // 2. חשב מסלול
@@ -380,9 +390,6 @@ public class EmployeePageController extends UserControllers implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
         engine = webv.getEngine();
 
         //set map
