@@ -9,7 +9,7 @@ public class Db {
     // connect to DB - MYSQL
     private Connection Establish_Connect(){
 
-        try{connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/myuserdb", "root", "");return connect;}
+        try{connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mydb", "root", "");return connect;}
         catch (Exception e){e.printStackTrace();}
         return null;
     }
@@ -30,5 +30,14 @@ public class Db {
             Statement statement = connect.createStatement();
             return statement.executeQuery(query);
         } catch (Exception e) {e.printStackTrace();return null;}
+    }
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mydb", "root", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

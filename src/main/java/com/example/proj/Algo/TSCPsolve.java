@@ -1,78 +1,190 @@
 package com.example.proj.Algo;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TSCPsolve {
 
-    public final int MAXCAPACITY = 300;
-    Bin Startpoint;
-    List<Bin> fullbins = new ArrayList<>();
-    List<Bin> over70bins = new ArrayList<>();
-    List<Bin> otherbins = new ArrayList<>();
-    List<Bin> temproute = new ArrayList<>();
-    Truck truck;
-    Route route;
+    private static final double TRUCK_CAPACITY = 500.0;
+    private static final double START_LAT = 31.5864;
+    private static final double START_LON = 34.7811;
 
-    public TSCPsolve(List<Bin> bins, Bin start){
-        for (Bin bin : bins){
-            if (bin.fillpercent == 100){fullbins.add(bin);}
-            else if (bin.fillpercent > 70){over70bins.add(bin);}
-            else if (bin.fillpercent > 0){otherbins.add(bin);}
+    public static List<Integer> calculateOptimizedRoute(List<Bin> bins) {
+        Bin startBin = new Bin(0, START_LAT, START_LON, 0);
+
+        if (bins.stream().noneMatch(b -> b.getId() == 0)) {
+            bins.add(0, startBin);
         }
-        truck = new Truck(MAXCAPACITY);
-        route = new Route();
-        Startpoint = start;
+
+        bins = bins.stream()
+                .filter(b -> b.getFillLevel() > 0)
+                .collect(Collectors.toList());
+
+        List<Bin> redBins = bins.stream().filter(b -> b.getFillLevel() >= 70).collect(Collectors.toList());
+        List<Bin> yellowBins = bins.stream().filter(b -> b.getFillLevel() >= 30 && b.getFillLevel() < 70).collect(Collectors.toList());
+        List<Bin> greenBins = bins.stream().filter(b -> b.getFillLevel() < 30).collect(Collectors.toList());
+
+        List<Bin> sortedBins = new ArrayList<>();
+        sortedBins.addAll(sortByDistance(startBin, redBins));
+        sortedBins.addAll(sortByDistance(startBin, yellowBins));
+        sortedBins.addAll(sortByDistance(startBin, greenBins));
+
+        //בדיקה
+        List<Integer> sortedBinsTemp = new ArrayList<>();
+        for (Bin bin : sortedBins){
+            sortedBinsTemp.add(bin.getId());
+        }
+        System.out.println("sorted bins: " + sortedBinsTemp);
+
+        List<Bin> selectedBins = new ArrayList<>();
+        double currentLoad = 0.0;
+
+        for (Bin bin : sortedBins) {
+            if (currentLoad + bin.getFillLevel() <= TRUCK_CAPACITY) {
+                selectedBins.add(bin);
+                currentLoad += bin.getFillLevel();
+            }
+        }
+
+        //בדיקה
+        List<Integer> selectedBinsTemp = new ArrayList<>();
+        for (Bin bin : selectedBins){
+            selectedBinsTemp.add(bin.getId());
+        }
+        System.out.println("selected bins: " + selectedBinsTemp);
+
+        List<Bin> routeBins = new ArrayList<>();
+        routeBins.add(startBin);
+        routeBins.addAll(selectedBins);
+        routeBins.add(startBin); // חזרה לתחנה
+
+        //בדיקה
+        List<Integer> routeBinsTemp = new ArrayList<>();
+        for (Bin bin : routeBins){
+            routeBinsTemp.add(bin.getId());
+        }
+        System.out.println("route bins: " + routeBinsTemp);
+
+        double[][] distanceMatrix = buildDistanceMatrix(routeBins);
+        List<Integer> routeIndices = solveTSP(distanceMatrix);
+        List<Integer> routeIds = new ArrayList<>();
+
+        for (int index : routeIndices) {
+            Bin bin = routeBins.get(index);
+            routeIds.add(bin.getId());
+        }
+        System.out.println("distance matrix: " + Arrays.deepToString(distanceMatrix));
+        System.out.println("route Ids: " + routeIds);
+
+        return routeIds;
     }
 
-    public Bin NearestNeighbour(List<Bin> bins,Bin current){
-        double mindistance = 999999999.9;
-        Bin nearestbin = null;
-        for (Bin bin : bins){
-            double curdistance = route.distance(current, bin);
-            if (curdistance < mindistance){
-                mindistance = curdistance;
-                nearestbin = bin;
-            }
-        }
-        return nearestbin;
+    private static List<Bin> sortByDistance(Bin from, List<Bin> bins) {
+        return bins.stream()
+                .sorted(Comparator.comparingDouble(b -> distance(from, b)))
+                .collect(Collectors.toList());
     }
 
-    public Route Solve(){
-        temproute.add(Startpoint);
-        while (!fullbins.isEmpty()){
-            Bin curr = NearestNeighbour(fullbins,temproute.getLast());
-            if (truck.canLoad(curr)){
-                truck.load(curr);
-                temproute.add(curr);
+    private static double distance(Bin a, Bin b) {
+        double dx = a.getLatitude() - b.getLatitude();
+        double dy = a.getLongitude() - b.getLongitude();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    private static double[][] buildDistanceMatrix(List<Bin> bins) {
+        int size = bins.size();
+        double[][] matrix = new double[size][size];
+
+        try {
+            StringBuilder coordinates = new StringBuilder();
+            for (Bin bin : bins) {
+                coordinates.append(bin.getLongitude()).append(",").append(bin.getLatitude()).append(";");
             }
-            fullbins.remove(curr);
-        }
-        while (!over70bins.isEmpty()){
-            Bin curr = NearestNeighbour(over70bins,temproute.getLast());
-            if (truck.canLoad(curr)){
-                truck.load(curr);
-                temproute.add(curr);
+            coordinates.setLength(coordinates.length() - 1);
+
+            String urlStr = "http://router.project-osrm.org/table/v1/driving/" + coordinates + "?annotations=duration";
+            HttpURLConnection conn = (HttpURLConnection) new URL(urlStr).openConnection();
+            conn.setRequestMethod("GET");
+
+            Scanner scanner = new Scanner(conn.getInputStream());
+            String response = scanner.useDelimiter("\\A").next();
+            scanner.close();
+
+            JSONObject json = new JSONObject(response);
+            if (!json.has("durations")) {
+                throw new RuntimeException("Missing 'durations' in OSRM response:\n" + json.toString(2));
             }
-            over70bins.remove(curr);
-        }
-        while (!otherbins.isEmpty()){
-            Bin curr = NearestNeighbour(otherbins,temproute.getLast());
-            if (truck.canLoad(curr)){
-                truck.load(curr);
-                temproute.add(curr);
+
+            JSONArray durations = json.getJSONArray("durations");
+
+            for (int i = 0; i < size; i++) {
+                JSONArray row = durations.getJSONArray(i);
+                for (int j = 0; j < size; j++) {
+                    matrix[i][j] = row.getDouble(j);
+                }
             }
-            otherbins.remove(curr);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to connect to OSRM service", e);
         }
 
-        route.addBin(Startpoint);
-        temproute.remove(Startpoint);
-        while (!temproute.isEmpty()){
-            Bin curr = NearestNeighbour(temproute,route.bins.getLast());
-            temproute.remove(curr);
-            route.addBin(curr);
+        return matrix;
+    }
+
+    private static List<Integer> solveTSP(double[][] distanceMatrix) {
+        int n = distanceMatrix.length;
+        boolean[] visited = new boolean[n];
+        List<Integer> path = new ArrayList<>();
+        int current = 0;
+        path.add(current);
+        visited[current] = true;
+
+        for (int i = 1; i < n - 1; i++) {
+            double minDist = Double.MAX_VALUE;
+            int next = -1;
+
+            for (int j = 1; j < n - 1; j++) {
+                if (!visited[j] && distanceMatrix[current][j] < minDist) {
+                    minDist = distanceMatrix[current][j];
+                    next = j;
+                }
+            }
+
+            if (next != -1) {
+                path.add(next);
+                visited[next] = true;
+                current = next;
+            }
         }
-        route.addBin(Startpoint);
+
+        path.add(n - 1); // return to depot
+        return applyTwoOpt(path, distanceMatrix);
+    }
+
+    private static List<Integer> applyTwoOpt(List<Integer> route, double[][] dist) {
+        boolean improvement = true;
+        int size = route.size();
+
+        while (improvement) {
+            improvement = false;
+            for (int i = 1; i < size - 2; i++) {
+                for (int j = i + 1; j < size - 1; j++) {
+                    double before = dist[route.get(i - 1)][route.get(i)] + dist[route.get(j)][route.get(j + 1)];
+                    double after = dist[route.get(i - 1)][route.get(j)] + dist[route.get(i)][route.get(j + 1)];
+                    if (after < before) {
+                        Collections.reverse(route.subList(i, j + 1));
+                        improvement = true;
+                    }
+                }
+            }
+        }
+
         return route;
     }
 }

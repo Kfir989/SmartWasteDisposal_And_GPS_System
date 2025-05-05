@@ -1,6 +1,9 @@
 package com.example.proj;
 
+import com.example.proj.Algo.Bin;
+import com.example.proj.Algo.TSCPsolve;
 import com.example.proj.DB.Db;
+import com.example.proj.DB.DbHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -22,6 +25,8 @@ import javafx.scene.chart.PieChart;
 import javafx.collections.ObservableList;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -277,6 +282,7 @@ public class EmployeePageController extends UserControllers implements Initializ
             salery.setVisible(false);
             Tickets.setVisible(false);
             map.setVisible(true);
+            loadBinsOnly();
         }
         else if (e.getSource() == ticket_btn){
             dashboard.setVisible(false);
@@ -329,74 +335,47 @@ public class EmployeePageController extends UserControllers implements Initializ
         webv.getEngine().executeScript("window.javaConnector.drawRoute('" + jsonCoords + "');");
     }
 
-    public void fetchAndDrawOptimizedRoute(double[][] waypoints) {
-        String routeData = OSRMClient.getOptimizedRoute(waypoints);
-        if (routeData != null) {
-            JSONObject json = new JSONObject(routeData);
-            JSONArray coordinates = json.getJSONArray("trips").getJSONObject(0)
-                    .getJSONObject("geometry").getJSONArray("coordinates");
-
-            StringBuilder routeJson = new StringBuilder("[");
-            for (int i = 0; i < coordinates.length(); i++) {
-                JSONArray coord = coordinates.getJSONArray(i);
-                if (i > 0) routeJson.append(",");
-                routeJson.append("[").append(coord.getDouble(1)).append(",").append(coord.getDouble(0)).append("]");
-            }
-            routeJson.append("]");
-
-            drawRoute(routeJson.toString());
-        }
-    }
-
     public void clickstart(){
-        double[][] waypoints = {
-                {31.6240, 34.7745},
-                {31.6230, 34.7725},
-                {31.6260, 34.7690},
-                {31.6280, 34.7715},
-                {31.6220, 34.7665},
-                {31.6255, 34.7680},
+        clearMapMarkers();
+        // 1. טען פחים מה-DB
+        List<Bin> bins = DbHelper.loadBinsFromDB(); // או BinDAO.getAllBinsFromDB() אם אתה משתמש במחלקה חיצונית
 
-                {31.6115, 34.7630},
-                {31.6100, 34.7625},
-                {31.6125, 34.7650},
-                {31.6130, 34.7645},
-                {31.6095, 34.7660},
-                {31.6105, 34.7615},
+        // 2. חשב מסלול
+        List<Integer> route = TSCPsolve.calculateOptimizedRoute(bins);
 
-                {31.5985, 34.7580},
-                {31.5990, 34.7600},
-                {31.6000, 34.7620},
-                {31.6020, 34.7635},
-                {31.6035, 34.7595},
-                {31.6040, 34.7610}
-        };
+        // 3. צור רשימה של נקודות למסלול
+        List<double[]> coords = new ArrayList<>();
 
-        addMarker(31.6240, 34.7745, "Northern Kiryat Gat - 1", "Green");
-        addMarker(31.6230, 34.7725, "Northern Kiryat Gat - 2", "red");
-        addMarker(31.6260, 34.7690, "Northern Kiryat Gat - 3", "red");
-        addMarker(31.6280, 34.7715, "Northern Kiryat Gat - 4", "red");
-        addMarker(31.6220, 34.7665, "Northern Kiryat Gat - 5", "red");
-        addMarker(31.6255, 34.7680, "Northern Kiryat Gat - 6", "red");
+        for (int binId : route) {
+            Bin bin = bins.stream()
+                    .filter(b -> b.getId() == binId)
+                    .findFirst()
+                    .orElse(null);
 
-        addMarker(31.6115, 34.7630, "Central Kiryat Gat - 1", "red");
-        addMarker(31.6100, 34.7625, "Central Kiryat Gat - 2", "red");
-        addMarker(31.6125, 34.7650, "Central Kiryat Gat - 3", "red");
-        addMarker(31.6130, 34.7645, "Central Kiryat Gat - 4", "yellow");
-        addMarker(31.6095, 34.7660, "Central Kiryat Gat - 5", "red");
-        addMarker(31.6105, 34.7615, "Central Kiryat Gat - 6", "red");
+            if (bin != null) {
+                // צבע לפי תכולה
+                String color = bin.getFillLevel() >= 70 ? "red" :
+                        bin.getFillLevel() >= 30 ? "yellow" : "green";
 
-        addMarker(31.5985, 34.7580, "Southern Kiryat Gat - 1", "red");
-        addMarker(31.5990, 34.7600, "Southern Kiryat Gat - 2", "red");
-        addMarker(31.6000, 34.7620, "Southern Kiryat Gat - 3", "red");
-        addMarker(31.6020, 34.7635, "Southern Kiryat Gat - 4", "red");
-        addMarker(31.6035, 34.7595, "Southern Kiryat Gat - 5", "red");
-        addMarker(31.6040, 34.7610, "Southern Kiryat Gat - 6", "red");
-        addMarker(31.6240, 34.7745, "Northern Kiryat Gat - 1", "green");
+                // הוסף סמן
+                addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
 
-        fetchAndDrawOptimizedRoute(waypoints);
+                // הוסף לנקודות של המסלול
+                coords.add(new double[]{bin.getLatitude(), bin.getLongitude()});
+            }
+        }
 
+        // 4. המרת נקודות לפורמט JSON
+        StringBuilder jsonCoords = new StringBuilder("[");
+        for (int i = 0; i < coords.size(); i++) {
+            double[] coord = coords.get(i);
+            jsonCoords.append("[").append(coord[0]).append(",").append(coord[1]).append("]");
+            if (i != coords.size() - 1) jsonCoords.append(",");
+        }
+        jsonCoords.append("]");
 
+        // 5. צייר מסלול
+        drawRoute(jsonCoords.toString());
     }
 
     @Override
@@ -426,22 +405,25 @@ public class EmployeePageController extends UserControllers implements Initializ
                     }).addTo(map);
 
                     var markers = [];
+                    var circles = [];
                     var routeLayer;
 
                     function addMarker(lat, lon, label, color) {
-
-                        var marker = L.marker([lat, lon]).addTo(map).bindPopup(label);
-                                                var circle = L.circle([lat, lon], {
-                            color: 'black', 
-                            fillColor: color, 
-                            fillOpacity: 0.3,
-                            radius: 30
-                        }).addTo(map);   
-                        marker.on('click', function () {
-                            this.openPopup();  
-                        });
-                        markers.push(marker); 
-                    }
+                                 var marker = L.marker([lat, lon]).addTo(map).bindPopup(label);
+                                 var circle = L.circle([lat, lon], {
+                                     color: 'black',\s
+                                     fillColor: color,\s
+                                     fillOpacity: 0.3,
+                                     radius: 30
+                                 }).addTo(map);
+                
+                                 marker.on('click', function () {
+                                     this.openPopup(); \s
+                                 });
+                
+                                 markers.push(marker);
+                                 circles.push(circle);
+                             }
 
                     function drawRoute(routeCoords) {
                         if (routeLayer) map.removeLayer(routeLayer);
@@ -464,4 +446,22 @@ public class EmployeePageController extends UserControllers implements Initializ
 
     }
 
+    public void loadBinsOnly() {
+        List<Bin> bins = DbHelper.loadBinsFromDB();
+
+        for (Bin bin : bins) {
+            // צבע לפי תכולה
+            String color = bin.getFillLevel() >= 70 ? "red" :
+                    bin.getFillLevel() >= 30 ? "yellow" : "green";
+
+            // הוסף סמן
+            addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
+        }
+    }
+
+    public void clearMapMarkers() {
+        webv.getEngine().executeScript("markers.forEach(m => map.removeLayer(m)); markers = [];");
+        webv.getEngine().executeScript("circles.forEach(c => map.removeLayer(c)); circles = [];");
+        webv.getEngine().executeScript("if (typeof routeLayer !== 'undefined' && routeLayer) map.removeLayer(routeLayer);");
+    }
 }

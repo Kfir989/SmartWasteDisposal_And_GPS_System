@@ -21,4 +21,9 @@ public class Bin {
     public boolean isOver70(){
         return fillpercent > 70.0;
     }
+
+    public int getId() { return ID; }
+    public double getLatitude() { return lat; }
+    public double getLongitude() { return lon; }
+    public int getFillLevel() { return fillpercent; }
 }
