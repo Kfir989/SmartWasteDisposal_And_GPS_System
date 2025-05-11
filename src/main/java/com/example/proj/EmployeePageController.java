@@ -335,27 +335,41 @@ public class EmployeePageController extends UserControllers implements Initializ
         webv.getEngine().executeScript("window.javaConnector.drawRoute('" + jsonCoords + "');");
     }
 
-    public void clickstart(){
-        clearMapMarkers();
-        // 1. טען פחים מה-DB
+    public void clickstart() {
+        clearMapMarkers(); // נקה סמנים קודמים
 
-        //List<Bin> bins = new ArrayList<>();
-        //try{
-        //    ResultSet rs =db.getdata("SELECT id, lat, lon, fillpercent FROM bins");
-        //    while (rs.next()){
-        //        bins.add(new Bin(rs.getInt("ID"), rs.getDouble("lat"), rs.getDouble("lon"), rs.getInt("fillpercent")));
-        //    }
-        //}catch(Exception e){e.printStackTrace();}
+        // טען את הפחים מה-DB
+        List<Bin> bins = DbHelper.loadBinsFromDB();
 
-
-        List<Bin> bins = DbHelper.loadBinsFromDB(); // או BinDAO.getAllBinsFromDB() אם אתה משתמש במחלקה חיצונית
-
-        // 2. חשב מסלול
+        // הפעל את האלגוריתם
         List<Integer> route = TSCPsolve.calculateOptimizedRoute(bins);
 
-        // 3. צור רשימה של נקודות למסלול
-        List<double[]> coords = new ArrayList<>();
+        // בניית URL ל-OSRM עם נקודות המסלול
+        StringBuilder coordinates = new StringBuilder();
+        for (int binId : route) {
+            Bin bin = bins.stream()
+                    .filter(b -> b.getId() == binId)
+                    .findFirst()
+                    .orElse(null);
+            if (bin != null) {
+                coordinates.append(bin.getLongitude()).append(",").append(bin.getLatitude()).append(";");
+            }
+        }
+        // הסרת הסימן ';' האחרון
+        coordinates.setLength(coordinates.length() - 1);
 
+        String url = "http://router.project-osrm.org/route/v1/driving/" + coordinates + "?overview=full&geometries=geojson";
+
+        // שליחה ל-JavaScript כדי לצייר את המסלול
+        webv.getEngine().executeScript("fetch('" + url + "')"
+                + ".then(response => response.json())"
+                + ".then(data => {"
+                + "    var route = data.routes[0].geometry.coordinates;"
+                + "    var latLngs = route.map(coord => [coord[1], coord[0]]);"
+                + "    drawRoute(latLngs);"
+                + "});");
+
+        // הוספת סמנים
         for (int binId : route) {
             Bin bin = bins.stream()
                     .filter(b -> b.getId() == binId)
@@ -363,29 +377,11 @@ public class EmployeePageController extends UserControllers implements Initializ
                     .orElse(null);
 
             if (bin != null) {
-                // צבע לפי תכולה
                 String color = bin.getFillLevel() >= 70 ? "red" :
                         bin.getFillLevel() >= 30 ? "yellow" : "green";
-
-                // הוסף סמן
                 addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
-
-                // הוסף לנקודות של המסלול
-                coords.add(new double[]{bin.getLatitude(), bin.getLongitude()});
             }
         }
-
-        // 4. המרת נקודות לפורמט JSON
-        StringBuilder jsonCoords = new StringBuilder("[");
-        for (int i = 0; i < coords.size(); i++) {
-            double[] coord = coords.get(i);
-            jsonCoords.append("[").append(coord[0]).append(",").append(coord[1]).append("]");
-            if (i != coords.size() - 1) jsonCoords.append(",");
-        }
-        jsonCoords.append("]");
-
-        // 5. צייר מסלול
-        drawRoute(jsonCoords.toString());
     }
 
     @Override
@@ -434,7 +430,7 @@ public class EmployeePageController extends UserControllers implements Initializ
 
                     function drawRoute(routeCoords) {
                         if (routeLayer) map.removeLayer(routeLayer);
-                        routeLayer = L.polyline(routeCoords, {color: 'blue'}).addTo(map);
+                        routeLayer = L.polyline(routeCoords, {color: 'blue', weight: 5}).addTo(map);
                     }
 
                     window.javaConnector = {
