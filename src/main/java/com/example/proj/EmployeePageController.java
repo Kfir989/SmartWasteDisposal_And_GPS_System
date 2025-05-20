@@ -331,6 +331,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         webv.getEngine().executeScript("window.javaConnector.addMarker(" + lat + "," + lon + ",'" + label + "','" + color + "');");
     }
 
+
     public void drawRoute(String jsonCoords) {
         webv.getEngine().executeScript("window.javaConnector.drawRoute('" + jsonCoords + "');");
     }
