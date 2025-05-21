@@ -134,6 +134,12 @@ public class EmployeePageController extends UserControllers implements Initializ
     @FXML
     private WebEngine engine;
 
+    @FXML
+    private ComboBox<String> cityComboBox;
+
+    @FXML
+    private ComboBox<String> areaComboBox;
+
     private final Db db = new Db();
 
     public void Setusersession(String user) {
@@ -340,10 +346,28 @@ public class EmployeePageController extends UserControllers implements Initializ
         clearMapMarkers(); // נקה סמנים קודמים
 
         // טען את הפחים מה-DB
-        List<Bin> bins = DbHelper.loadBinsFromDB();
+        String selectedCity = cityComboBox.getValue();
+        String selectedArea = areaComboBox.getValue();
+
+        Bin startBin;
+        switch (selectedCity) {
+            case "Qiryat-Gat" -> startBin = new Bin(0, 31.5864, 34.7811, 0);
+            case "Ashkelon"   -> startBin = new Bin(31, 31.642, 34.5506, 0);
+            case "Sderot"     -> startBin = new Bin(62, 31.513470808277482, 34.600495683388026, 0);
+            default -> {
+                return;
+            }
+        }
+
+        // שליפת הפחים לפי עיר ואזור שנבחרו
+        List<Bin> bins = DbHelper.loadBinsForCityAndArea(selectedCity, selectedArea);;
+        bins.removeIf(b -> b.getId() == startBin.getId());  // הימנע מכפילויות
+        bins.addFirst(startBin);
+        bins.addLast(startBin);
+
 
         // הפעל את האלגוריתם
-        List<Integer> route = TSCPsolve.calculateOptimizedRoute(bins);
+        List<Integer> route = TSCPsolve.calculateOptimizedRoute(bins, startBin);
 
         // בניית URL ל-OSRM עם נקודות המסלול
         StringBuilder coordinates = new StringBuilder();
@@ -448,17 +472,64 @@ public class EmployeePageController extends UserControllers implements Initializ
         """;
         engine.loadContent(htmlContent);
 
+        // אתחול ComboBox
+        cityComboBox.getItems().addAll("Qiryat-Gat", "Ashkelon", "Sderot");
+        areaComboBox.getItems().addAll("A", "B", "C");
+
+        engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
+                clickreset();
+            }
+        });
+
+        // שינוי מיקום המפה לפי עיר שנבחרה
+        cityComboBox.setOnAction(e -> {
+            String city = cityComboBox.getValue();
+            switch (city) {
+                case "Qiryat-Gat" -> engine.executeScript("map.setView([31.6100, 34.7642], 13);");
+                case "Ashkelon"   -> engine.executeScript("map.setView([31.6650, 34.5715], 13);");
+                case "Sderot"     -> engine.executeScript("map.setView([31.5100, 34.5950], 13);");
+            }
+
+            if (areaComboBox.getValue() != null) {
+                loadBinsOnly();
+            }
+        });
+
+        areaComboBox.setOnAction(e -> {
+            // טען פחים אם גם עיר נבחרה
+            if (cityComboBox.getValue() != null) {
+                loadBinsOnly();
+            }
+        });
+
     }
 
     public void loadBinsOnly() {
-        List<Bin> bins = DbHelper.loadBinsFromDB();
+        clearMapMarkers(); // נקה סמנים קיימים
+
+        String selectedCity = cityComboBox.getValue();
+        String selectedArea = areaComboBox.getValue();
+
+        if (selectedCity == null || selectedArea == null) return;
+
+        List<Bin> bins = DbHelper.loadBinsForCityAndArea(selectedCity, selectedArea);
 
         for (Bin bin : bins) {
-            // צבע לפי תכולה
             String color = bin.getFillLevel() >= 70 ? "red" :
                     bin.getFillLevel() >= 30 ? "yellow" : "green";
 
-            // הוסף סמן
+            addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
+        }
+    }
+
+    public void clickreset() {
+        clearMapMarkers(); // נקה את המפה
+        List<Bin> bins = DbHelper.loadBinsFromDB(); // כל הפחים מכל הערים
+
+        for (Bin bin : bins) {
+            String color = bin.getFillLevel() >= 70 ? "red" :
+                    bin.getFillLevel() >= 30 ? "yellow" : "green";
             addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
         }
     }

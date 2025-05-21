@@ -12,15 +12,9 @@ import java.util.stream.Collectors;
 public class TSCPsolve {
 
     private static final double TRUCK_CAPACITY = 500.0;
-    private static final double START_LAT = 31.5864;
-    private static final double START_LON = 34.7811;
 
-    public static List<Integer> calculateOptimizedRoute(List<Bin> bins) {
-        Bin startBin = new Bin(0, START_LAT, START_LON, 0);
 
-        if (bins.stream().noneMatch(b -> b.getId() == 0)) {
-            bins.add(0, startBin);
-        }
+    public static List<Integer> calculateOptimizedRoute(List<Bin> bins, Bin startBin) {
 
         bins = bins.stream()
                 .filter(b -> b.getFillLevel() > 0)

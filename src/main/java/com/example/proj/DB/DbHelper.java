@@ -14,7 +14,7 @@ public class DbHelper {
         List<Bin> bins = new ArrayList<>();
 
         try (Connection conn = Db.getConnection()) {
-            String sql = "SELECT id, lat, lon, fillpercent FROM bins";
+            String sql = "SELECT ID, lat, lon, fillpercent FROM bins";
             PreparedStatement stmt = ((java.sql.Connection) conn).prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
@@ -33,4 +33,30 @@ public class DbHelper {
 
         return bins;
     }
+
+    public static List<Bin> loadBinsForCityAndArea(String city, String area) {
+        List<Bin> bins = new ArrayList<>();
+        try {
+            Connection conn = new Db().getConnection();
+            String query = "SELECT * FROM bins WHERE city = ? AND area = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, city);
+            stmt.setString(2, area);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                bins.add(new Bin(
+                        rs.getInt("ID"),
+                        rs.getDouble("lat"),
+                        rs.getDouble("lon"),
+                        rs.getInt("fillpercent")
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bins;
+    }
+
 }

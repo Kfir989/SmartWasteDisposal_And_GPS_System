@@ -339,9 +339,9 @@
                   <AnchorPane layoutX="14.0" layoutY="318.0" prefHeight="79.0" prefWidth="252.0" style="-fx-background-radius: 30px;" stylesheets="@EmployeeDesign.css">
                      <children>
                         <Button layoutX="7.0" layoutY="8.0" mnemonicParsing="false" onAction="#clickstart" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: green; -fx-background-radius: 30px;" text="Start" />
-                        <Button layoutX="7.0" layoutY="44.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" style="-fx-background-color: red; -fx-background-radius: 30px;" text="Reset" />
-                        <ComboBox layoutX="105.0" layoutY="45.0" prefHeight="0.0" prefWidth="127.0" promptText="City" style="-fx-background-radius: 30px;" />
-                        <ComboBox layoutX="105.0" layoutY="8.0" prefHeight="0.0" prefWidth="71.0" promptText="Area" style="-fx-background-radius: 30px;" />
+                        <Button layoutX="7.0" layoutY="44.0" mnemonicParsing="false" onAction="#clickreset" prefHeight="27.0" prefWidth="90.0" style="-fx-background-color: red; -fx-background-radius: 30px;" text="Reset" />
+                        <ComboBox fx:id="cityComboBox" layoutX="105.0" layoutY="45.0" prefHeight="0.0" prefWidth="127.0" promptText="City" style="-fx-background-radius: 30px;" />
+                        <ComboBox fx:id="areaComboBox" layoutX="105.0" layoutY="8.0" prefHeight="0.0" prefWidth="71.0" promptText="Area" style="-fx-background-radius: 30px;" />
                      </children>
                   </AnchorPane>
                </children>
