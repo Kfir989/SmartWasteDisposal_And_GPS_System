@@ -54,6 +54,11 @@
                   <Font size="26.0" />
                </font>
             </Button>
+            <Button fx:id="compare_btn" layoutX="2.0" layoutY="395.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Compare" textFill="#f5f1de">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
             <Button fx:id="logout_btn" layoutX="2.0" layoutY="430.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-border-color: none;" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Logout" textFill="#f5f1de">
                <font>
                   <Font size="26.0" />
@@ -75,6 +80,11 @@
                </image>
             </ImageView>
             <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons8-map-50.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icons8-map-50.png" />
                </image>
@@ -465,6 +475,19 @@
                </children>
             </AnchorPane>
          </children>
+      </AnchorPane>
+      <AnchorPane fx:id="compare" layoutX="222.0" prefHeight="486.0" prefWidth="608.0"
+                  styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+         <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+            <graphic>
+               <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@reject.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <fx:include source="compare.fxml"/>
       </AnchorPane>
    </children>
 </AnchorPane>

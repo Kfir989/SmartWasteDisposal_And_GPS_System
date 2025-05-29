@@ -140,6 +140,9 @@ public class EmployeePageController extends UserControllers implements Initializ
     @FXML
     private ComboBox<String> areaComboBox;
 
+    @FXML private AnchorPane compare;
+    @FXML private Button compare_btn;
+
     private final Db db = new Db();
 
     public void Setusersession(String user) {
@@ -267,6 +270,7 @@ public class EmployeePageController extends UserControllers implements Initializ
             salery.setVisible(false);
             map.setVisible(false);
             Tickets.setVisible(false);
+            compare.setVisible(false);
         }
         else if (e.getSource() == schedule_btn){
             dashboard.setVisible(false);
@@ -274,6 +278,7 @@ public class EmployeePageController extends UserControllers implements Initializ
             salery.setVisible(false);
             Tickets.setVisible(false);
             map.setVisible(false);
+            compare.setVisible(false);
         }
         else if (e.getSource() == salery_btn){
             dashboard.setVisible(false);
@@ -281,6 +286,7 @@ public class EmployeePageController extends UserControllers implements Initializ
             salery.setVisible(true);
             Tickets.setVisible(false);
             map.setVisible(false);
+            compare.setVisible(false);
         }
         else if (e.getSource() == map_btn){
             dashboard.setVisible(false);
@@ -288,6 +294,7 @@ public class EmployeePageController extends UserControllers implements Initializ
             salery.setVisible(false);
             Tickets.setVisible(false);
             map.setVisible(true);
+            compare.setVisible(false);
             loadBinsOnly();
         }
         else if (e.getSource() == ticket_btn){
@@ -296,6 +303,16 @@ public class EmployeePageController extends UserControllers implements Initializ
             salery.setVisible(false);
             map.setVisible(false);
             Tickets.setVisible(true);
+            compare.setVisible(false);
+
+        }
+        else if (e.getSource() == compare_btn){
+            dashboard.setVisible(false);
+            schdule.setVisible(false);
+            salery.setVisible(false);
+            map.setVisible(false);
+            Tickets.setVisible(false);
+            compare.setVisible(true);
         }
     }
 
