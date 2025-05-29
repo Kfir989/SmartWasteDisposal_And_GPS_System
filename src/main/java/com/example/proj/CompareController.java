@@ -39,6 +39,33 @@ public class CompareController {
         engine1 = webviewCustom.getEngine();
         engine2 = webviewTSP.getEngine();
 
+        cityBox.setOnAction(e -> {
+            String city = cityBox.getValue();
+            String jsCommand = switch (city) {
+                case "Qiryat-Gat" -> "map.setView([31.6100, 34.7642], 13);";
+                case "Ashkelon"   -> "map.setView([31.6650, 34.5715], 13);";
+                case "Sderot"     -> "map.setView([31.5100, 34.5950], 13);";
+                default -> null;
+            };
+
+            if (jsCommand != null) {
+                engine1.executeScript(jsCommand);
+                engine2.executeScript(jsCommand);
+            }
+        });
+
+        areaBox.setOnAction(e -> {
+            String city = cityBox.getValue();
+            String area = areaBox.getValue();
+            if (city != null && area != null) {
+                List<Bin> bins = DbHelper.loadBinsForCityAndArea(city, area);
+                engine1.executeScript("clearMap()");
+                engine2.executeScript("clearMap()");
+                addMarkersForAllBins(engine1, bins);
+                addMarkersForAllBins(engine2, bins);
+            }
+        });
+
         loadMapHTML(engine1);
         loadMapHTML(engine2);
 

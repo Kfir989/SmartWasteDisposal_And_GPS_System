@@ -20,6 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
+<?import javafx.scene.control.ListView?>
 <AnchorPane prefHeight="482.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proj.EmployeePageController">
    <children>
       <AnchorPane prefHeight="486.0" prefWidth="222.0" styleClass="side-menu" stylesheets="@EmployeeDesign.css">

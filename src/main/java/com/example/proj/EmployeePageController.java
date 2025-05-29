@@ -185,6 +185,7 @@ public class EmployeePageController extends UserControllers implements Initializ
             FXMLLoader cardloader = new FXMLLoader(getClass().getResource("schdulecard.fxml"));
             AnchorPane card = cardloader.load();
             CardController CC = cardloader.getController();
+            CC.setParentController(this);
             CC.setCarddata(
                     rs.getString("date"),
                     rs.getString("day"),
@@ -329,6 +330,67 @@ public class EmployeePageController extends UserControllers implements Initializ
 
     }
 
+    public void showRouteForShift(String area) {
+        // מעבר לתצוגת מפה
+        dashboard.setVisible(false);
+        schdule.setVisible(false);
+        salery.setVisible(false);
+        Tickets.setVisible(false);
+        map.setVisible(true);
+        compare.setVisible(false);
+
+        // הגדר עיר ואזור
+        String city = "Qiryat-Gat";  // כרגע תמיד קריית גת
+        cityComboBox.setValue(city);
+        areaComboBox.setValue(area);
+
+        // עדכן את המפה
+        engine.executeScript("map.setView([31.6100, 34.7642], 13);");
+        clearMapMarkers();
+
+        Bin startBin = new Bin(0, 31.5864, 34.7811, 0);
+        List<Bin> bins = DbHelper.loadBinsForCityAndArea(city, area);
+        bins.removeIf(b -> b.getId() == startBin.getId());
+        bins.add(0, startBin);
+        bins.add(startBin);
+
+        // הצגת הפחים על המפה
+        for (Bin bin : bins) {
+            String color = bin.getFillLevel() >= 70 ? "red" :
+                    bin.getFillLevel() >= 30 ? "yellow" : "green";
+            addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
+        }
+
+        // שליחת הבקשה עם steps=true
+        try {
+            StringBuilder coordinates = new StringBuilder();
+            for (Bin b : bins) {
+                coordinates.append(b.getLongitude()).append(",").append(b.getLatitude()).append(";");
+            }
+            coordinates.setLength(coordinates.length() - 1);
+
+            String url = "http://router.project-osrm.org/route/v1/driving/" + coordinates +
+                    "?overview=full&geometries=geojson&steps=true";
+
+            String js = """
+            fetch('%s')
+            .then(r => r.json())
+            .then(data => {
+                var route = data.routes[0].geometry.coordinates;
+                var latLngs = route.map(coord => [coord[1], coord[0]]);
+                drawRoute(latLngs);
+
+                var instructions = data.routes[0].legs.flatMap(leg => leg.steps.map(step => step.maneuver.instruction));
+                alert("Route instructions:\\n" + instructions.join("\\n"));
+            });
+        """.formatted(url);
+
+            engine.executeScript(js);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void submitticketrespond(){
         db.getupdate("UPDATE citizenreports SET respond = '" + respondtext.getText() + "', response = 'Responded' WHERE ID = " + respondticketnumber.getText());
         try{
@@ -352,11 +414,6 @@ public class EmployeePageController extends UserControllers implements Initializ
 
     public void addMarker(double lat, double lon, String label, String color) {
         webv.getEngine().executeScript("window.javaConnector.addMarker(" + lat + "," + lon + ",'" + label + "','" + color + "');");
-    }
-
-
-    public void drawRoute(String jsonCoords) {
-        webv.getEngine().executeScript("window.javaConnector.drawRoute('" + jsonCoords + "');");
     }
 
     public void clickstart() {
