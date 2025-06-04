@@ -3,13 +3,12 @@ package com.example.proj;
 import com.example.proj.Algo.Bin;
 import com.example.proj.Algo.TSCPsolve;
 import com.example.proj.Algo.ExactTSP;
-import com.example.proj.DB.DbHelper;
+import com.example.proj.DB.Db;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -58,7 +57,7 @@ public class CompareController {
             String city = cityBox.getValue();
             String area = areaBox.getValue();
             if (city != null && area != null) {
-                List<Bin> bins = DbHelper.loadBinsForCityAndArea(city, area);
+                List<Bin> bins = Db.loadBinsForCityAndArea(city, area);
                 engine1.executeScript("clearMap()");
                 engine2.executeScript("clearMap()");
                 addMarkersForAllBins(engine1, bins);
@@ -73,7 +72,7 @@ public class CompareController {
         customColumn.setCellValueFactory(data -> data.getValue().customValueProperty());
         tspColumn.setCellValueFactory(data -> data.getValue().tspValueProperty());
 
-        List<Bin> allBins = DbHelper.loadBinsFromDB();  // טוען את כל הפחים מכל הערים
+        List<Bin> allBins = Db.loadBinsFromDB();  // טוען את כל הפחים מכל הערים
         engine1.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
                 addMarkersForAllBins(engine1, allBins);
@@ -154,7 +153,7 @@ public class CompareController {
             default -> null;
         };
 
-        List<Bin> bins = DbHelper.loadBinsForCityAndArea(city, area);
+        List<Bin> bins = Db.loadBinsForCityAndArea(city, area);
         bins.removeIf(b -> b.getId() == startBin.getId());
         bins.add(0, startBin);
         bins.add(startBin);

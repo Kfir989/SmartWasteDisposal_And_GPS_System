@@ -20,7 +20,6 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<?import javafx.scene.control.ListView?>
 <AnchorPane prefHeight="482.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proj.EmployeePageController">
    <children>
       <AnchorPane prefHeight="486.0" prefWidth="222.0" styleClass="side-menu" stylesheets="@EmployeeDesign.css">
@@ -55,9 +54,9 @@
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="compare_btn" layoutX="2.0" layoutY="395.0" mnemonicParsing="false" onAction="#switchform" prefHeight="50.0" prefWidth="215.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Compare" textFill="#f5f1de">
+            <Button fx:id="compare_btn" layoutX="1.0" layoutY="396.0" mnemonicParsing="false" onAction="#switchform" prefHeight="20.0" prefWidth="217.0" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Compare" textFill="#f5f1de">
                <font>
-                  <Font size="26.0" />
+                  <Font size="19.0" />
                </font>
             </Button>
             <Button fx:id="logout_btn" layoutX="2.0" layoutY="430.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-border-color: none;" styleClass="btns-menu" stylesheets="@EmployeeDesign.css" text="Logout" textFill="#f5f1de">
@@ -85,12 +84,12 @@
                   <Image url="@icons8-map-50.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="32.0" fitWidth="31.0" layoutX="7.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icons8-map-50.png" />
+                  <Image url="@icons8-compare-50.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="31.0" fitWidth="37.0" layoutX="7.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icons8-logout-50.png" />
                </image>
@@ -112,7 +111,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="dashboard" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+      <AnchorPane fx:id="dashboard" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css">
          <children>
             <AnchorPane layoutX="17.0" layoutY="80.0" prefHeight="132.0" prefWidth="158.0" styleClass="info-boxes" stylesheets="@EmployeeDesign.css">
                <children>
@@ -250,7 +249,7 @@
       </AnchorPane>
       <AnchorPane fx:id="schdule" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
          <children>
-            <Button fx:id="exit" layoutX="590.0" layoutY="1.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+            <Button fx:id="exit" layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
                <graphic>
                   <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -324,7 +323,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="map" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css">
+      <AnchorPane fx:id="map" layoutX="222.0" prefHeight="486.0" prefWidth="617.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
          <children>
             <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
                <graphic>
@@ -477,9 +476,9 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="compare" layoutX="222.0" prefHeight="486.0" prefWidth="608.0"
-                  styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
-         <Button layoutX="590.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
+      <AnchorPane fx:id="compare" layoutX="222.0" prefHeight="486.0" prefWidth="608.0" styleClass="top-bar" stylesheets="@EmployeeDesign.css" visible="false">
+         <fx:include source="compare.fxml" />
+         <Button layoutX="590.0" layoutY="2.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="27.0" styleClass="btn-exit" stylesheets="@LandingDesign.css">
             <graphic>
                <ImageView fitHeight="11.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -488,7 +487,6 @@
                </ImageView>
             </graphic>
          </Button>
-         <fx:include source="compare.fxml"/>
       </AnchorPane>
    </children>
 </AnchorPane>

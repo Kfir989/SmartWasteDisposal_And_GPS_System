@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:controller="com.example.proj.CompareController" xmlns:fx="http://javafx.com/fxml" prefHeight="486.0" prefWidth="617.0">
+<AnchorPane prefHeight="486.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proj.CompareController">
     <children>
-        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
-            <HBox spacing="10">
-                <ComboBox fx:id="cityBox" promptText="בחר עיר" />
-                <ComboBox fx:id="areaBox" promptText="בחר אזור" />
-                <Button text="Start Comparison" onAction="#startComparison"/>
+        <VBox spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+            <HBox spacing="10" style="-fx-alignment: center;">
+                <ComboBox fx:id="cityBox" promptText="בחר עיר" style="-fx-background-radius: 30px;" />
+                <ComboBox fx:id="areaBox" promptText="בחר אזור" style="-fx-background-radius: 30px;" />
+                <Button onAction="#startComparison" style="-fx-background-radius: 30; -fx-background-color: green;" text="Start Comparison" />
             </HBox>
             <HBox spacing="10" VBox.vgrow="ALWAYS">
-                <WebView fx:id="webviewCustom" prefHeight="350" prefWidth="300" HBox.hgrow="ALWAYS"/>
-                <WebView fx:id="webviewTSP" prefHeight="350" prefWidth="300" HBox.hgrow="ALWAYS"/>
+                <WebView fx:id="webviewCustom" prefHeight="350" prefWidth="300" HBox.hgrow="ALWAYS" />
+                <WebView fx:id="webviewTSP" prefHeight="350" prefWidth="300" HBox.hgrow="ALWAYS" />
             </HBox>
-            <TableView fx:id="resultTable" prefHeight="100">
+            <TableView fx:id="resultTable" prefHeight="100.0" prefWidth="516.0" stylesheets="@CitizenPage.css">
                 <columns>
-                    <TableColumn fx:id="paramColumn" text="פרמטר"/>
-                    <TableColumn fx:id="customColumn" text="האלגוריתם שלי"/>
-                    <TableColumn fx:id="tspColumn" text="TSP מדויק"/>
+                    <TableColumn fx:id="paramColumn" prefWidth="209.0" text="פרמטר" />
+                    <TableColumn fx:id="customColumn" prefWidth="136.0" text="האלגוריתם שלנו" />
+                    <TableColumn fx:id="tspColumn" minWidth="0.0" prefWidth="143.0" text="TSP מדויק" />
+               <TableColumn fx:id="tspColumn1" minWidth="0.0" prefWidth="113.0" text="מס&quot;ד" />
                 </columns>
             </TableView>
         </VBox>

@@ -51,9 +51,9 @@
                   <Image url="@icons8-home-50.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="43.0" layoutX="4.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icons8-document-50.png" />
+                  <Image url="@icons8-contract-64.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="7.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true">
