@@ -3,7 +3,6 @@ package com.example.proj;
 import com.example.proj.Algo.Bin;
 import com.example.proj.Algo.TSCPsolve;
 import com.example.proj.DB.Db;
-import com.example.proj.DB.DbHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -19,13 +18,10 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import javafx.scene.chart.PieChart;
 import javafx.collections.ObservableList;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -349,7 +345,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         clearMapMarkers();
 
         Bin startBin = new Bin(0, 31.5864, 34.7811, 0);
-        List<Bin> bins = DbHelper.loadBinsForCityAndArea(city, area);
+        List<Bin> bins = Db.loadBinsForCityAndArea(city, area);
         bins.removeIf(b -> b.getId() == startBin.getId());
         bins.add(0, startBin);
         bins.add(startBin);
@@ -434,7 +430,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
 
         // שליפת הפחים לפי עיר ואזור שנבחרו
-        List<Bin> bins = DbHelper.loadBinsForCityAndArea(selectedCity, selectedArea);;
+        List<Bin> bins = Db.loadBinsForCityAndArea(selectedCity, selectedArea);;
         bins.removeIf(b -> b.getId() == startBin.getId());  // הימנע מכפילויות
         bins.addFirst(startBin);
         bins.addLast(startBin);
@@ -587,7 +583,7 @@ public class EmployeePageController extends UserControllers implements Initializ
 
         if (selectedCity == null || selectedArea == null) return;
 
-        List<Bin> bins = DbHelper.loadBinsForCityAndArea(selectedCity, selectedArea);
+        List<Bin> bins = Db.loadBinsForCityAndArea(selectedCity, selectedArea);
 
         for (Bin bin : bins) {
             String color = bin.getFillLevel() >= 70 ? "red" :
@@ -599,7 +595,7 @@ public class EmployeePageController extends UserControllers implements Initializ
 
     public void clickreset() {
         clearMapMarkers(); // נקה את המפה
-        List<Bin> bins = DbHelper.loadBinsFromDB(); // כל הפחים מכל הערים
+        List<Bin> bins = Db.loadBinsFromDB(); // כל הפחים מכל הערים
 
         for (Bin bin : bins) {
             String color = bin.getFillLevel() >= 70 ? "red" :
