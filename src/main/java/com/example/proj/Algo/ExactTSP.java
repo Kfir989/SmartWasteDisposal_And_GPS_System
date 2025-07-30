@@ -11,13 +11,12 @@ import java.util.*;
 public class ExactTSP {
 
     public static List<Integer> solve(List<Bin> bins, Bin startBin) {
-        // בניית מטריצת מרחקים
         double[][] dist = buildDistanceMatrix(bins);
 
         int n = bins.size();
         List<Integer> indices = new ArrayList<>();
         for (int i = 1; i < n - 1; i++) {
-            indices.add(i); // כל הפחים חוץ מהתחלה והסיום
+            indices.add(i);
         }
 
         List<Integer> bestRoute = new ArrayList<>();
@@ -25,9 +24,9 @@ public class ExactTSP {
 
         for (List<Integer> perm : generatePermutations(indices)) {
             List<Integer> route = new ArrayList<>();
-            route.add(0); // התחלה
+            route.add(0);
             route.addAll(perm);
-            route.add(n - 1); // סיום
+            route.add(n - 1);
 
             double total = totalDistance(route, dist);
             if (total < minDistance) {

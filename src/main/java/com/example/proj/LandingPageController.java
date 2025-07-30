@@ -15,8 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class LandingPageController extends Controllers {
-    // var init:
-
+    // Variable
     @FXML
     private RadioButton rolebtn1;
 
@@ -52,10 +51,10 @@ public class LandingPageController extends Controllers {
 
     @FXML
     private AnchorPane signuppage;
-    // DB init:
+
     private final Db db = new Db();
 
-    // account releted functions:
+    // Make sure all registration fields are filled in correctly before creating a new user.
     public boolean formvalidation(ActionEvent event){
 
         String correctstyle = "-fx-border-color:white; -fx-text-inner-color: white;";
@@ -95,6 +94,7 @@ public class LandingPageController extends Controllers {
         return validationflag;
     }
 
+    // Create a new user (citizen or employee) in the database.
     public void signup(ActionEvent event){
 
         if(formvalidation(event)) {
@@ -117,6 +117,7 @@ public class LandingPageController extends Controllers {
         }
     }
 
+    // Verify the login details and redirect the user to their page.
     public void login(ActionEvent ae){
 
         try{
@@ -154,7 +155,8 @@ public class LandingPageController extends Controllers {
         }
         catch (Exception e){e.printStackTrace();}
     }
-    // switching tabs:
+
+    // Switching tabs:
     public void switchform(ActionEvent e){
 
         if (e.getSource() == haveaccount_btn){

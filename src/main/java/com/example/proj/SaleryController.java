@@ -4,25 +4,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class SaleryController {
-
+    // Variables
     @FXML
     private Label daysworked;
-
     @FXML
     private Label hoursworked;
-
     @FXML
     private Label month;
-
     @FXML
     private Label payment;
-
     @FXML
     private Label serialnum;
-
     @FXML
     private Label totalhours;
 
+    // Constructor
     public void setCarddata(int Daysworked, int Hoursworked, String Month, String Payment, int Serialnum, int Totalhours ){
         daysworked.setText("" + Daysworked);
         hoursworked.setText("" + Hoursworked);

@@ -1,12 +1,13 @@
 package com.example.proj.Algo;
 
 public class Bin {
+    //Variables
     public int ID;
     public double lat;
     public double lon;
     public int fillpercent;
 
-
+    //Constructor
     public Bin(int id, double lat, double lon , int fillpercent){
         ID = id;
         this.lat = lat;
@@ -14,14 +15,7 @@ public class Bin {
         this.fillpercent = fillpercent;
     }
 
-    public boolean isFull(){
-        return fillpercent == 100.0;
-    }
-
-    public boolean isOver70(){
-        return fillpercent > 70.0;
-    }
-
+    //Getters
     public int getId() { return ID; }
     public double getLatitude() { return lat; }
     public double getLongitude() { return lon; }
