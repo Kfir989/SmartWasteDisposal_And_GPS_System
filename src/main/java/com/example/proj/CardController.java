@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class CardController {
-
+    // Variables
     @FXML
     private Label carddate;
 
@@ -22,10 +22,12 @@ public class CardController {
 
     private EmployeePageController parentController;
 
+    // EmployeePageController Constructor
     public void setParentController(EmployeePageController controller) {
         this.parentController = controller;
     }
 
+    // Variables Constructor
     public void setCarddata(String date, String day, String start, String end, String Section ){
         carddate.setText(date);
         cardday.setText(day);
@@ -34,6 +36,7 @@ public class CardController {
         cardstart.setText(start);
     }
 
+    // Event click function.
     @FXML
     private void handleCardClick() {
         if (parentController != null) {

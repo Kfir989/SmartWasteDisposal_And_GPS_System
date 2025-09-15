@@ -13,7 +13,7 @@ public class TSCPsolve {
 
     private static final double TRUCK_CAPACITY = 500.0;
 
-
+    // Calculates an optimal evacuation route for bins based on priority, truck capacity, and actual distances using OSRM.
     public static List<Integer> calculateOptimizedRoute(List<Bin> bins, Bin startBin) {
 
         bins = bins.stream()
@@ -56,7 +56,7 @@ public class TSCPsolve {
         List<Bin> routeBins = new ArrayList<>();
         routeBins.add(startBin);
         routeBins.addAll(selectedBins);
-        routeBins.add(startBin); // חזרה לתחנה
+        routeBins.add(startBin);
 
         //בדיקה
         List<Integer> routeBinsTemp = new ArrayList<>();
@@ -79,18 +79,21 @@ public class TSCPsolve {
         return routeIds;
     }
 
+    // Sorts a list of bins by their distance from a given bin.
     private static List<Bin> sortByDistance(Bin from, List<Bin> bins) {
         return bins.stream()
                 .sorted(Comparator.comparingDouble(b -> distance(from, b)))
                 .collect(Collectors.toList());
     }
 
+    // Calculates a simple aerial distance between two bins based on coordinates.
     private static double distance(Bin a, Bin b) {
         double dx = a.getLatitude() - b.getLatitude();
         double dy = a.getLongitude() - b.getLongitude();
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+    // Builds a matrix of actual distances (times) between bins using the OSRM API.
     private static double[][] buildDistanceMatrix(List<Bin> bins) {
         int size = bins.size();
         double[][] matrix = new double[size][size];
@@ -131,6 +134,7 @@ public class TSCPsolve {
         return matrix;
     }
 
+    // Solves a distance matrix-based TSP problem using a simple grid algorithm.
     private static List<Integer> solveTSP(double[][] distanceMatrix) {
         int n = distanceMatrix.length;
         boolean[] visited = new boolean[n];
@@ -161,6 +165,7 @@ public class TSCPsolve {
         return applyTwoOpt(path, distanceMatrix);
     }
 
+    // Improves the generated route by making substitutions (2-opt) that shorten the total distance.
     private static List<Integer> applyTwoOpt(List<Integer> route, double[][] dist) {
         boolean improvement = true;
         int size = route.size();

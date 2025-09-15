@@ -9,14 +9,13 @@ public class Db {
     private Connection connect;
     // connect to DB - MYSQL
     private Connection Establish_Connect(){
-
-        try{connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/myuserdb", "root", "");return connect;}
+        try{
+            connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mydb", "root", "");return connect;}
         catch (Exception e){e.printStackTrace();}
         return null;
     }
     // INSERT DELETE UPDATE
     public void getupdate(String query){
-
             try {
                 connect = Establish_Connect();
                 Statement statement = connect.createStatement();
@@ -25,7 +24,6 @@ public class Db {
     }
     // SELECT
     public ResultSet getdata(String query){
-
         try {
             connect = Establish_Connect();
             Statement statement = connect.createStatement();
@@ -33,15 +31,17 @@ public class Db {
         } catch (Exception e) {e.printStackTrace();return null;}
     }
 
+    // Static connection to DB.
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/myuserdb", "root", "");
+            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mydb", "root", "");
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    // return all bin for the map preview.
     public static List<Bin> loadBinsFromDB() {
         List<Bin> bins = new ArrayList<>();
 
@@ -66,6 +66,7 @@ public class Db {
         return bins;
     }
 
+    // return the bin of the selected area.
     public static List<Bin> loadBinsForCityAndArea(String city, String area) {
         List<Bin> bins = new ArrayList<>();
         try {

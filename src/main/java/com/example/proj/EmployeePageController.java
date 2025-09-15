@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 
 public class EmployeePageController extends UserControllers implements Initializable {
-
+    // Variables
     @FXML
     private ProgressIndicator progressIndicator;
 
@@ -141,6 +141,7 @@ public class EmployeePageController extends UserControllers implements Initializ
 
     private final Db db = new Db();
 
+    // Gets a username, stores it in a Label, and initializes the dashboard.
     public void Setusersession(String user) {
         empName.setText(user);
         try {
@@ -153,6 +154,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
     }
 
+    // Loading data for user dashboard Tab.
     private void loadDashboardData(String user) throws SQLException {
         String query = "SELECT * FROM userdashboard WHERE username = '" + user + "'";
         ResultSet rs = db.getdata(query);
@@ -173,6 +175,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
     }
 
+    // Loading data for user Schedule Cards Tab.
     private void loadScheduleCards(String user) throws Exception {
         String query = "SELECT * FROM userschedule WHERE username = '" + user + "'";
         ResultSet rs = db.getdata(query);
@@ -197,6 +200,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
     }
 
+    // Loading data for user Salary Cards Tab.
     private void loadSalaryCards(String user) throws Exception {
         String query = "SELECT * FROM salerydata WHERE username = '" + user + "'";
         ResultSet rs = db.getdata(query);
@@ -217,6 +221,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
     }
 
+    // Loading data for user Ticket Tab.
     private void loadTicketTable(String user) throws SQLException {
         ResultSet rs = db.getdata("SELECT * FROM citizenreports");
         ObservableList<Reports> dataList = FXCollections.observableArrayList();
@@ -259,6 +264,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         mytickets.setItems(dataList);
     }
 
+    // Switch Tabs.
     public void switchform(ActionEvent e){
 
         if (e.getSource() == home_btn){
@@ -313,6 +319,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
     }
 
+    // Logout from the system.
     public void logout(ActionEvent event){
         try{
             home_btn.getScene().getWindow().hide();
@@ -326,8 +333,9 @@ public class EmployeePageController extends UserControllers implements Initializ
 
     }
 
+    //
     public void showRouteForShift(String area) {
-        // מעבר לתצוגת מפה
+        // Switch to map view
         dashboard.setVisible(false);
         schdule.setVisible(false);
         salery.setVisible(false);
@@ -335,12 +343,12 @@ public class EmployeePageController extends UserControllers implements Initializ
         map.setVisible(true);
         compare.setVisible(false);
 
-        // הגדר עיר ואזור
-        String city = "Qiryat-Gat";  // כרגע תמיד קריית גת
+        // Set city and region
+        String city = "Qiryat-Gat";  // Qiryat-Gat as default.
         cityComboBox.setValue(city);
         areaComboBox.setValue(area);
 
-        // עדכן את המפה
+        // Update the map.
         engine.executeScript("map.setView([31.6100, 34.7642], 13);");
         clearMapMarkers();
 
@@ -350,14 +358,13 @@ public class EmployeePageController extends UserControllers implements Initializ
         bins.add(0, startBin);
         bins.add(startBin);
 
-        // הצגת הפחים על המפה
+        // Showing the bins on the map
         for (Bin bin : bins) {
             String color = bin.getFillLevel() >= 70 ? "red" :
                     bin.getFillLevel() >= 30 ? "yellow" : "green";
             addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
         }
 
-        // שליחת הבקשה עם steps=true
         try {
             StringBuilder coordinates = new StringBuilder();
             for (Bin b : bins) {
@@ -387,6 +394,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
     }
 
+    // Update response for a ticket.
     public void submitticketrespond(){
         db.getupdate("UPDATE citizenreports SET respond = '" + respondtext.getText() + "', response = 'Responded' WHERE ID = " + respondticketnumber.getText());
         try{
@@ -399,23 +407,21 @@ public class EmployeePageController extends UserControllers implements Initializ
         message.show();
         respondpane.setVisible(false);
     }
-
     public void hiderespondwindow(){
         respondpane.setVisible(false);
         ticketresponsepane.setVisible(false);
     }
 
 
-    // functions related to the algorithm:
-
+    // Sends a JS command to the WebView to add a marker on the map in the appropriate color.
     public void addMarker(double lat, double lon, String label, String color) {
         webv.getEngine().executeScript("window.javaConnector.addMarker(" + lat + "," + lon + ",'" + label + "','" + color + "');");
     }
 
     public void clickstart() {
-        clearMapMarkers(); // נקה סמנים קודמים
+        clearMapMarkers(); // Clear all the markers.
 
-        // טען את הפחים מה-DB
+        // Get information from BD.
         String selectedCity = cityComboBox.getValue();
         String selectedArea = areaComboBox.getValue();
 
@@ -429,14 +435,14 @@ public class EmployeePageController extends UserControllers implements Initializ
             }
         }
 
-        // שליפת הפחים לפי עיר ואזור שנבחרו
+        // Bin retrieval by selected city and region
         List<Bin> bins = Db.loadBinsForCityAndArea(selectedCity, selectedArea);;
-        bins.removeIf(b -> b.getId() == startBin.getId());  // הימנע מכפילויות
+        bins.removeIf(b -> b.getId() == startBin.getId());
         bins.addFirst(startBin);
         bins.addLast(startBin);
 
 
-        // הפעל את האלגוריתם
+        // Run the algorithm
         List<Integer> route = TSCPsolve.calculateOptimizedRoute(bins, startBin);
 
         // בניית URL ל-OSRM עם נקודות המסלול
@@ -450,12 +456,11 @@ public class EmployeePageController extends UserControllers implements Initializ
                 coordinates.append(bin.getLongitude()).append(",").append(bin.getLatitude()).append(";");
             }
         }
-        // הסרת הסימן ';' האחרון
+
         coordinates.setLength(coordinates.length() - 1);
 
         String url = "http://router.project-osrm.org/route/v1/driving/" + coordinates + "?overview=full&geometries=geojson";
 
-        // שליחה ל-JavaScript כדי לצייר את המסלול
         webv.getEngine().executeScript("fetch('" + url + "')"
                 + ".then(response => response.json())"
                 + ".then(data => {"
@@ -464,7 +469,6 @@ public class EmployeePageController extends UserControllers implements Initializ
                 + "    drawRoute(latLngs);"
                 + "});");
 
-        // הוספת סמנים
         for (int binId : route) {
             Bin bin = bins.stream()
                     .filter(b -> b.getId() == binId)
@@ -542,7 +546,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         """;
         engine.loadContent(htmlContent);
 
-        // אתחול ComboBox
+        // init ComboBox
         cityComboBox.getItems().addAll("Qiryat-Gat", "Ashkelon", "Sderot");
         areaComboBox.getItems().addAll("A", "B", "C");
 
@@ -552,7 +556,7 @@ public class EmployeePageController extends UserControllers implements Initializ
             }
         });
 
-        // שינוי מיקום המפה לפי עיר שנבחרה
+        // Default start points
         cityComboBox.setOnAction(e -> {
             String city = cityComboBox.getValue();
             switch (city) {
@@ -567,7 +571,6 @@ public class EmployeePageController extends UserControllers implements Initializ
         });
 
         areaComboBox.setOnAction(e -> {
-            // טען פחים אם גם עיר נבחרה
             if (cityComboBox.getValue() != null) {
                 loadBinsOnly();
             }
@@ -576,7 +579,7 @@ public class EmployeePageController extends UserControllers implements Initializ
     }
 
     public void loadBinsOnly() {
-        clearMapMarkers(); // נקה סמנים קיימים
+        clearMapMarkers();
 
         String selectedCity = cityComboBox.getValue();
         String selectedArea = areaComboBox.getValue();
@@ -592,10 +595,10 @@ public class EmployeePageController extends UserControllers implements Initializ
             addMarker(bin.getLatitude(), bin.getLongitude(), "Bin ID: " + bin.getId(), color);
         }
     }
-
+    // Reset all the marks on the map to the default positions.
     public void clickreset() {
-        clearMapMarkers(); // נקה את המפה
-        List<Bin> bins = Db.loadBinsFromDB(); // כל הפחים מכל הערים
+        clearMapMarkers();
+        List<Bin> bins = Db.loadBinsFromDB();
 
         for (Bin bin : bins) {
             String color = bin.getFillLevel() >= 70 ? "red" :
@@ -604,6 +607,7 @@ public class EmployeePageController extends UserControllers implements Initializ
         }
     }
 
+    // Clearing all the marks.
     public void clearMapMarkers() {
         webv.getEngine().executeScript("markers.forEach(m => map.removeLayer(m)); markers = [];");
         webv.getEngine().executeScript("circles.forEach(c => map.removeLayer(c)); circles = [];");

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class LandingPage extends Application {
     @Override
-    //app launch
+    // App launch
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LandingPageController.class.getResource("LandingPage-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

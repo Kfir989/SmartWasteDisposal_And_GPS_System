@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 import java.sql.ResultSet;
 
 public class CitizenPageController extends UserControllers {
-    // param init:
+    // Variables
     @FXML
     private TableView<Reports> myreports;
 
@@ -95,6 +95,7 @@ public class CitizenPageController extends UserControllers {
 
     private final Db db = new Db();
 
+    // Check that all required fields in the citizen's report have been filled out.
     public boolean formValidation(){
         String correctstyle = "-fx-border-color:black; -fx-text-inner-color: black;";
         String wrongstyle = "-fx-border-color:red; -fx-text-inner-color: red;";
@@ -134,6 +135,7 @@ public class CitizenPageController extends UserControllers {
         return validationflag;
     }
 
+    // Clear the report form after successful submission or cancellation.
     public void makeformemepty(){
         firstname.setText("");
         lastname.setText("");
@@ -143,6 +145,7 @@ public class CitizenPageController extends UserControllers {
         fdescription.setText("");
     }
 
+    // Clear the report form after successful submission or cancellation.
     public void submitTicket(ActionEvent event){
         if(formValidation()){
             try{
@@ -160,11 +163,11 @@ public class CitizenPageController extends UserControllers {
         }
     }
 
-    // setting tableview for my reports, user dashboard
+    // Load the current user's personal data and reports.
     public void Setusersession(String user){
-            //user title setup
+        // User title setup
         Citizenname.setText(user);
-            //table setup
+        // Loads the reports from the database by username.
         try{
 
             String query = "SELECT * FROM citizenreports WHERE username = '"+user +"'";
@@ -177,28 +180,28 @@ public class CitizenPageController extends UserControllers {
             while (rs.next()){
                 tickets++;
                 if (rs.getString("response").equals("Responded")) responded++;
-                // creating buttons and setting style and functionality:
-               int id = rs.getInt("ID");
-               String response = rs.getString("respond");
-               String reason = rs.getString("reason");
-               Button delbutton = new Button("Delete");
-               delbutton.setStyle(buttonstyle);
-               delbutton.setOnMouseClicked(e ->{
-                   db.getupdate("DELETE FROM citizenreports WHERE ID = " + id);
-                   Setusersession(Citizenname.getText());
-               });
-               Button viewbutton = new Button("View Response");
-               viewbutton.setStyle(buttonstyle);
-               viewbutton.setOnMouseClicked(e ->{
-                   db.getdata("SELECT * FROM citizenreports WHERE ID = " + id);
-                   responsedescription.setText(response);
-                   responsetitle.setText(reason);
-                   ticketresponsepane.setVisible(true);
-               });
-               HBox buttons = new HBox(10, viewbutton, delbutton);
-               buttons.setAlignment(Pos.CENTER);
-               // setup for row in table as observablearray object
-               dataList.add(new Reports("" + count++,rs.getString("reason"), rs.getString("date"),rs.getString("response"), buttons));
+                // Creating buttons and setting style and functionality:
+                int id = rs.getInt("ID");
+                String response = rs.getString("respond");
+                String reason = rs.getString("reason");
+                Button delbutton = new Button("Delete");
+                delbutton.setStyle(buttonstyle);
+                delbutton.setOnMouseClicked(e ->{
+                    db.getupdate("DELETE FROM citizenreports WHERE ID = " + id);
+                    Setusersession(Citizenname.getText());
+                });
+                Button viewbutton = new Button("View Response");
+                viewbutton.setStyle(buttonstyle);
+                viewbutton.setOnMouseClicked(e ->{
+                    db.getdata("SELECT * FROM citizenreports WHERE ID = " + id);
+                    responsedescription.setText(response);
+                    responsetitle.setText(reason);
+                    ticketresponsepane.setVisible(true);
+                });
+                HBox buttons = new HBox(10, viewbutton, delbutton);
+                buttons.setAlignment(Pos.CENTER);
+                // setup for row in table as observablearray object
+                dataList.add(new Reports("" + count++,rs.getString("reason"), rs.getString("date"),rs.getString("response"), buttons));
             }
             //dashboard setup
             crtotal.setText("" + tickets);
@@ -216,10 +219,11 @@ public class CitizenPageController extends UserControllers {
         }catch (Exception e){e.printStackTrace();}
     }
 
+    // Close the box that displays the system's response to the report.
     public void hiderespondwindow(){
         ticketresponsepane.setVisible(false);
     }
-    // tabs switch
+    // Tabs switch
     public void switchform(ActionEvent e){
 
         if (e.getSource() == edashbored_btn){
@@ -239,6 +243,7 @@ public class CitizenPageController extends UserControllers {
         }
     }
 
+    // Log out of the system (return to the landing page).
     public void logout(ActionEvent event) {
 
         try {
