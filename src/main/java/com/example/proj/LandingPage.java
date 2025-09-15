@@ -19,9 +19,7 @@ public class LandingPage extends Application {
         stage.show();
     }
 
-    // Main users:
-    //kfir2 kfir2 citizen
-    //kfir1 kfir1 employee
+
     public static void main(String[] args) {
         launch();
     }
