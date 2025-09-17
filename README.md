@@ -44,6 +44,9 @@ Throughout the development process, our guiding principle was to create a system
 ---
 
 ## 🧩 System Architecture
+<p align="center">
+  <img src="src/main/resources/com/example/proj/uml2.png" alt="Project Banner" width="500">
+</p>
 **General Structure:**
 
 -Client:
