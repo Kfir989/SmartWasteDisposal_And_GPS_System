@@ -44,7 +44,7 @@ Throughout the development process, our guiding principle was to create a system
 ---
 
 ## 🧩 System Architecture
-**General Structure**
+**General Structure:**
 
 -Client:
 
@@ -62,7 +62,7 @@ Throughout the development process, our guiding principle was to create a system
 
 * Sending requests to OSRM for realistic road-based route calculations
 
-**Main System Components**
+**Main System Components:**
 
 **Controllers**: JavaFX controller classes responsible for receiving user input and displaying data.
 
