@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="SmartWasteDisposal_And_GPS_System/src/main/resources/com/example/proj/Smart Waste Disposal Manegment.png" alt="Project Banner" width="800">
+  <img src="SmartWasteDisposal_And_GPS_System/src/main/resources/com/example/proj/SmartWasteDisposalManegment.png" alt="Project Banner" width="800">
 </p>
 
 ## 
