@@ -145,7 +145,7 @@ From a service perspective, the system enables direct citizen involvement ðŸ§‘â€
 ## Performance
 
 ### <p>Our system demonstrates fast response times and efficient route calculations for waste collection, ensuring optimal performance.</p>
-<img src="src/main/resources/com/example/proj/Preformence.png" alt="Performance" width="600"/>
+<img src="src/main/resources/com/example/proj/Preformence.png" alt="Performance" width="800"/>
 
 ---
 
