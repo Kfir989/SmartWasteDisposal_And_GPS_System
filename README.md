@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="src/main/resources/com/example/proj/Smart Waste Disposal Manegment.png" alt="Project Banner" width="800">
+  <img src="src/main/resources/com/example/proj/Smart Waste Disposal Manegment.png" alt="Project Banner" width="1100">
 </p>
 
 ## 
@@ -116,22 +116,22 @@ From a service perspective, the system enables direct citizen involvement ðŸ§‘â€
 
 ### User Authentication
 <div style="display: flex; gap: 10px;">
-  <img src="src/main/resources/com/example/proj/Register.png" alt="Auth 1" width="450"/>
-  <img src="src/main/resources/com/example/proj/Login.png" alt="Auth 2" width="450"/>
+  <img src="src/main/resources/com/example/proj/Register.png" alt="Auth 1" width="600"/>
+  <img src="src/main/resources/com/example/proj/Login.png" alt="Auth 2" width="600"/>
 
 </div>
 
 ### Citizen Report System
 <div style="display: flex; gap: 10px;">
-  <img src="src/main/resources/com/example/proj/c_report.png" alt="Citizen 1" width="450"/>
-  <img src="src/main/resources/com/example/proj/e_review.png" alt="Citizen 2" width="450"/>
+  <img src="src/main/resources/com/example/proj/c_report.png" alt="Citizen 1" width="600"/>
+  <img src="src/main/resources/com/example/proj/e_review.png" alt="Citizen 2" width="600"/>
 
 </div>
 
 ### Employee Dashbored & Scheduled Routes
 <div style="display: flex; gap: 10px;">
-  <img src="src/main/resources/com/example/proj/E_dashbored.png" alt="Employee 1" width="450"/>
-  <img src="src/main/resources/com/example/proj/map.png" alt="Employee 2" width="450"/>
+  <img src="src/main/resources/com/example/proj/E_dashbored.png" alt="Employee 1" width="600"/>
+  <img src="src/main/resources/com/example/proj/map.png" alt="Employee 2" width="600"/>
 
 </div>
 
